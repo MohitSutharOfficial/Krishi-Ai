@@ -1,0 +1,78 @@
+/* KrishiAi Theme — Light and Dark mode variables */
+
+:root {
+  /* Light mode (default) */
+  --bg-primary: #FEFAE0;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #D8F3DC;
+
+  --text-primary: #1B1B1B;
+  --text-secondary: #555555;
+  --text-tertiary: #6b7280;
+
+  --border-color: #B7E4C7;
+
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+
+  --accent-green: #2D6A4F;
+  --accent-green-light: #52B788;
+  --accent-blue: #48CAE4;
+  --accent-golden: #F4A300;
+  --accent-soil: #8B5E3C;
+  --accent-danger: #D62828;
+
+  --bg-cream: #FEFAE0;
+  --bg-green-light: #D8F3DC;
+
+  /* Transition properties */
+  --transition-duration: 0.3s;
+}
+
+.dark {
+  /* Dark mode variables */
+  --bg-primary: #1B1B1B;
+  --bg-secondary: #1f2937;
+  --bg-tertiary: #374151;
+
+  --text-primary: #f9fafb;
+  --text-secondary: #e5e7eb;
+  --text-tertiary: #d1d5db;
+
+  --border-color: #374151;
+
+  --card-bg: #1f2937;
+  --input-bg: #374151;
+
+  --accent-green: #52B788;
+  --accent-green-light: #95D5B2;
+  --accent-blue: #90E0EF;
+  --accent-golden: #FFD166;
+  --accent-soil: #A67C52;
+  --accent-danger: #EF4444;
+
+  --bg-cream: #111827;
+  --bg-green-light: #163B2E;
+
+  color-scheme: dark;
+}
+
+/* Smooth transitions between themes */
+body,
+input,
+textarea,
+select,
+button {
+  transition: background-color var(--transition-duration),
+    color var(--transition-duration),
+    border-color var(--transition-duration);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}

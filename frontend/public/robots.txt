@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://krishiai.pages.dev/sitemap.xml

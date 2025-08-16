@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
+  <!-- Wheat stalk icon with AI node -->
+  <g transform="translate(10, 5)">
+    <!-- Main stalk -->
+    <path d="M30 70 L30 20" stroke="#2D6A4F" stroke-width="3" stroke-linecap="round"/>
+    <!-- Left leaves -->
+    <path d="M30 55 C20 50, 12 40, 8 30 C15 35, 22 42, 30 48" fill="#2D6A4F"/>
+    <path d="M30 40 C20 35, 14 25, 12 15 C18 22, 24 30, 30 35" fill="#52B788"/>
+    <!-- Right leaves -->
+    <path d="M30 55 C40 50, 48 40, 52 30 C45 35, 38 42, 30 48" fill="#2D6A4F"/>
+    <path d="M30 40 C40 35, 46 25, 48 15 C42 22, 36 30, 30 35" fill="#52B788"/>
+    <!-- Wheat grain top -->
+    <ellipse cx="30" cy="14" rx="5" ry="8" fill="#F4A300"/>
+    <ellipse cx="22" cy="20" rx="4" ry="7" fill="#F4A300" transform="rotate(-20 22 20)"/>
+    <ellipse cx="38" cy="20" rx="4" ry="7" fill="#F4A300" transform="rotate(20 38 20)"/>
+    <!-- AI circuit node -->
+    <circle cx="30" cy="14" r="3" fill="#2D6A4F"/>
+    <circle cx="22" cy="8" r="1.5" fill="#2D6A4F"/>
+    <circle cx="38" cy="8" r="1.5" fill="#2D6A4F"/>
+    <line x1="30" y1="14" x2="22" y2="8" stroke="#2D6A4F" stroke-width="1"/>
+    <line x1="30" y1="14" x2="38" y2="8" stroke="#2D6A4F" stroke-width="1"/>
+  </g>
+  <!-- KrishiAi wordmark -->
+  <text x="75" y="52" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="42" fill="#2D6A4F">
+    Krishi<tspan fill="#F4A300">Ai</tspan>
+  </text>
+  <!-- Tagline -->
+  <text x="77" y="72" font-family="'Noto Sans Devanagari', sans-serif" font-weight="500" font-size="11" fill="#555555">
+    आपकी फसल, हमारी जिम्मेदारी
+  </text>
+</svg>

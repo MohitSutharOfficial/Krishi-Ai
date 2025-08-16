@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* KrishiAi CSS Custom Properties */
+:root {
+  --krishiai-green: #2D6A4F;
+  --krishiai-green-light: #52B788;
+  --krishiai-green-bg: #D8F3DC;
+  --krishiai-gold: #F4A300;
+  --krishiai-brown: #8B5E3C;
+  --krishiai-sky: #48CAE4;
+  --krishiai-danger: #D62828;
+  --krishiai-cream: #FEFAE0;
+  --krishiai-text: #1B1B1B;
+  --krishiai-muted: #555555;
+}
+
+/* Base typography for farmer-friendly readability */
+@layer base {
+  html {
+    font-family: 'Baloo 2', 'Noto Sans Devanagari', sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (max-width: 640px) {
+    html {
+      font-size: 16px;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 700;
+  }
+
+  body {
+    font-weight: 500;
+  }
+}
+
+/* Gradient border animation */
+@keyframes gradient-border {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-border {
+  background-size: 200% 200%;
+  animation: gradient-border 4s ease infinite;
+}
+
+/* Farming-themed loading animation */
+.loading-crop {
+  font-size: 48px;
+  animation: grow 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes grow {
+  0% {
+    transform: scaleY(0.3);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* KrishiAi button base */
+.krishiai-btn {
+  min-height: 56px;
+  min-width: 140px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 16px;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.krishiai-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.krishiai-btn-primary {
+  background-color: var(--krishiai-green);
+  color: white;
+}
+
+.krishiai-btn-primary:hover {
+  background-color: var(--krishiai-green-light);
+}
+
+.krishiai-btn-golden {
+  background-color: var(--krishiai-gold);
+  color: #1B1B1B;
+}
+
+.krishiai-btn-golden:hover {
+  background-color: #FFD166;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--krishiai-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--krishiai-green-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--krishiai-green);
+}

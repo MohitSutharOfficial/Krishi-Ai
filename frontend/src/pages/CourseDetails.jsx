@@ -1,0 +1,57 @@
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Accordion, AccordionItem } from '@nextui-org/react'; // Importing NextUI's Accordion component
+import courses from '../data/courses.json'; // Adjust the path as needed
+
+const CourseDetails = () => {
+  const { t } = useTranslation();
+  const { id } = useParams();
+  const course = courses.find((course) => course.id === id);
+
+  if (!course) {
+    return <p className="text-center text-red-500">{t('course_not_found')}</p>;
+  }
+
+  return (
+    <div className="bg-[#FEFAE0] text-gray-100 min-h-screen">
+       {/* Add the Navbar */}
+      <div className="max-w-3xl mx-auto py-8 p-4 pt-24">
+        <h1 className="text-4xl font-bold mb-4 text-green-400 transition-transform duration-300 ease-in-out transform hover:scale-105">
+          {course.title}
+        </h1>
+        <p className="text-xl mb-4">{course.description}</p>
+        <p className="text-gray-400 mb-4">{t('language_label')}: <span className="text-green-400">{course.language}</span></p>
+        <div>
+          <h2 className="text-2xl font-bold mb-2 text-green-300">{t('course_content')}</h2>
+          <p className="bg-white p-4 rounded-lg shadow-lg">{course.content.split('\n').map((line, index) => (
+            <p key={index}>{line}</p>
+          ))}</p>
+        </div>
+        <div className="mt-6">
+          <h2 className="text-2xl font-bold mb-2 text-green-300">{t('related_videos')}</h2>
+          <Accordion className="bg-white border border-green-200 rounded-lg">
+            {course.videoIds.map((videoId, index) => (
+              <AccordionItem
+                key={index}
+                title={<span className="text-white">Video {index + 1}</span>}
+                className="bg-white border-b border-green-200"
+              >
+                <div className="mb-4" style={{ height: '500px' }}>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${videoId}`}
+                    title={`${course.title} Video ${index + 1}`}
+                    className="w-full h-full rounded-lg shadow-lg"
+                    allowFullScreen
+                  />
+                </div>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CourseDetails;
