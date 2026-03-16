@@ -11,7 +11,7 @@ frontend: [https://krishi-ai.pages.dev/](https://krishi-ai.pages.dev/)
 
 Ml Model: [https://mohitsuthar-krishiai-ml.hf.space/](https://mohitsuthar-krishiai-ml.hf.space/)
 
-Ml Model on Hugging Face: [https://huggingface.co/MohitSutharOfficial/krishiai-crop-recommendation](https://huggingface.co/MohitSutharOfficial/krishiai-crop-recommendation)
+Ml Model on Hugging Face: [https://huggingface.co/spaces/mohitsuthar/krishiai-ml](https://huggingface.co/spaces/mohitsuthar/krishiai-ml)
 
 ## Features
 
