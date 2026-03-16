@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { toast } from 'react-hot-toast';
-import { 
-    FaLeaf, FaFlask, FaTint, FaTemperatureHigh, FaCloudShowersHeavy, FaWater, 
-    FaSun, FaHourglassHalf, FaCloudSun, FaExclamationTriangle, FaTools, 
-    FaChartLine, FaRupeeSign, FaCheckCircle, FaBug 
+import {
+    FaLeaf, FaFlask, FaTint, FaTemperatureHigh, FaCloudShowersHeavy, FaWater,
+    FaSun, FaHourglassHalf, FaCloudSun, FaExclamationTriangle, FaTools,
+    FaChartLine, FaRupeeSign, FaCheckCircle, FaBug
 } from 'react-icons/fa';
-import { GiFertilizerBag, GiSpade, GiPlantRoots } from "react-icons/gi"; 
+import { GiFertilizerBag, GiSpade, GiPlantRoots } from "react-icons/gi";
 import { useTranslation } from 'react-i18next';
 
 // --- Sub-Component: Input Field (Defined OUTSIDE to prevent focus loss) ---
@@ -137,7 +137,7 @@ const CropResultDetails = ({ result, t }) => {
 
             {/* Two Column Section: Tools & Economics */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+
                 {/* Tools */}
                 {details.tools_needed && (
                     <div className="bg-white rounded-xl p-6 border border-green-200 shadow-md">
@@ -179,7 +179,7 @@ const CropResultDetails = ({ result, t }) => {
 
 const CropRecommendationML = () => {
     const { t } = useTranslation();
-    const { ML_BACKEND_URL } = useAuthContext();
+    const { ML_BACKEND_URL, ML_API_KEY } = useAuthContext();
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
 
@@ -205,11 +205,11 @@ const CropRecommendationML = () => {
         try {
             const response = await fetch(`${ML_BACKEND_URL}/api/predict/crop`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-API-Key': ML_API_KEY },
                 body: JSON.stringify(formData)
             });
             const data = await response.json();
-            
+
             if (response.ok) {
                 setResult(data);
                 toast.success(t('crop_predicted_success'));
@@ -251,9 +251,9 @@ const CropRecommendationML = () => {
                                 <InputField label={t('potassium_k')} name="potassium" icon={GiFertilizerBag} placeholder="0-205" value={formData.potassium} onChange={handleChange} />
                                 <InputField label="pH Level" name="ph" icon={FaFlask} placeholder="0-14" value={formData.ph} onChange={handleChange} />
                             </div>
-                            
+
                             <div className="border-t border-green-200 my-1"></div>
-                            
+
                             <div className="grid grid-cols-2 gap-4">
                                 <InputField label="Temperature (°C)" name="temperature" icon={FaTemperatureHigh} placeholder="Celsius" value={formData.temperature} onChange={handleChange} />
                                 <InputField label="Humidity (%)" name="humidity" icon={FaTint} placeholder="%" value={formData.humidity} onChange={handleChange} />

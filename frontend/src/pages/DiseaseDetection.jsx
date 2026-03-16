@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const DiseaseDetection = () => {
     const { t } = useTranslation();
-    const { ML_BACKEND_URL } = useAuthContext();
+    const { ML_BACKEND_URL, ML_API_KEY } = useAuthContext();
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -53,6 +53,7 @@ const DiseaseDetection = () => {
         try {
             const response = await fetch(`${ML_BACKEND_URL}/api/predict/disease`, {
                 method: 'POST',
+                headers: { 'X-API-Key': ML_API_KEY },
                 body: formData
             });
             const data = await response.json();
@@ -86,17 +87,16 @@ const DiseaseDetection = () => {
                 <div className="grid md:grid-cols-2 gap-8">
                     {/* Upload Section */}
                     <div className="space-y-6">
-                        <div 
-                            className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center h-80 transition-all ${
-                                preview ? 'border-green-500 bg-white' : 'border-green-200 bg-white/50 hover:bg-white hover:border-gray-500'
-                            }`}
+                        <div
+                            className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center h-80 transition-all ${preview ? 'border-green-500 bg-white' : 'border-green-200 bg-white/50 hover:bg-white hover:border-gray-500'
+                                }`}
                             onDragOver={handleDragOver}
                             onDrop={handleDrop}
                         >
                             {preview ? (
                                 <div className="relative w-full h-full flex items-center justify-center">
                                     <img src={preview} alt="Preview" className="max-h-full max-w-full rounded-lg shadow-lg object-contain" />
-                                    <button 
+                                    <button
                                         onClick={clearSelection}
                                         className="absolute -top-4 -right-4 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 shadow-md"
                                         title={t('remove_image')}
@@ -111,12 +111,12 @@ const DiseaseDetection = () => {
                                     <p className="text-gray-500 text-sm">{t('or_click_to_browse')}</p>
                                 </div>
                             )}
-                            
-                            <input 
-                                type="file" 
+
+                            <input
+                                type="file"
                                 ref={fileInputRef}
-                                onChange={handleFileChange} 
-                                accept="image/*" 
+                                onChange={handleFileChange}
+                                accept="image/*"
                                 className={`absolute inset-0 w-full h-full opacity-0 cursor-pointer ${preview ? 'hidden' : ''}`}
                             />
                         </div>
@@ -124,11 +124,10 @@ const DiseaseDetection = () => {
                         <button
                             onClick={handleSubmit}
                             disabled={!file || loading}
-                            className={`w-full py-4 rounded-lg font-bold text-lg shadow-lg flex items-center justify-center transition-all ${
-                                !file 
+                            className={`w-full py-4 rounded-lg font-bold text-lg shadow-lg flex items-center justify-center transition-all ${!file
                                     ? 'bg-green-50 text-gray-500 cursor-not-allowed'
                                     : 'bg-gradient-to-r from-green-600 to-green-800 text-white hover:from-green-500 hover:to-green-700'
-                            }`}
+                                }`}
                         >
                             {loading ? (
                                 <svg className="animate-spin h-6 w-6 text-white" viewBox="0 0 24 24">
@@ -164,7 +163,7 @@ const DiseaseDetection = () => {
                                     <h3 className="text-2xl font-bold text-white">{result.disease}</h3>
                                     <div className="flex items-center mt-2">
                                         <div className="flex-1 bg-green-50 h-2 rounded-full overflow-hidden">
-                                            <div 
+                                            <div
                                                 className={`h-full rounded-full ${result.confidence > 80 ? 'bg-green-500' : 'bg-yellow-500'}`}
                                                 style={{ width: `${result.confidence}%` }}
                                             ></div>

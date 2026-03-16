@@ -16,15 +16,21 @@ import mlRoutes from './routes/ml.routes.js';
 import parchiRoutes from './routes/parchi.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 import schemesRoutes from './routes/schemes.routes.js';
+import chatRoutes from './routes/chat.routes.js';
 import cookieParser from 'cookie-parser';
 dotenv.config();
 const app = express();
 
-// Enable CORS for all routes
+// CORS — only allow your frontend domain
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean);
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    if (ALLOWED_ORIGINS.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
@@ -53,6 +59,7 @@ app.use('/api/ml', mlRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/parchi', parchiRoutes);
 app.use('/api/schemes', schemesRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Only listen when running locally (not on Vercel serverless)
 if (!process.env.VERCEL) {

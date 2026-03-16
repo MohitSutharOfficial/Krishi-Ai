@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
+import { useAuthContext } from '../context/AuthContext';
 
 // AI Service Configuration
 const AI_SERVICES = {
-  DEEPSEEK: 'deepseek',
+  GEMINI: 'gemini',
   LOCAL: 'local'
 };
 
@@ -24,60 +25,33 @@ const agriculturalKnowledge = {
 };
 
 class AIService {
-  constructor(serviceType) {
+  constructor(serviceType, backendUrl) {
     this.serviceType = serviceType;
+    this.backendUrl = backendUrl;
   }
 
-  // DeepSeek AI Service
-  async callDeepSeekAPI(prompt) {
+  // Gemini AI via backend proxy (API key stays on server)
+  async callGeminiAPI(prompt) {
     try {
-      const apiKey = import.meta.env.VITE_DEEPSEEK_KEY;
-
-      if (!apiKey) {
-        throw new Error('DeepSeek API key not found');
-      }
-
-      const response = await fetch('https://api.deepseek.com/chat/completions', {
+      const token = JSON.parse(localStorage.getItem('user'))?.token;
+      const response = await fetch(`${this.backendUrl}/api/chat/gemini`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          model: 'deepseek-chat',
-          messages: [
-            {
-              role: 'system',
-              content: `You are an agricultural expert assistant for KrishiAi. You provide practical, actionable farming advice to Indian farmers. 
-              Be concise, helpful, and focus on sustainable farming practices. 
-              Provide specific recommendations for crops, soil, pests, weather, and market information.
-              Keep responses under 300 words and use simple language.`
-            },
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          max_tokens: 500,
-          temperature: 0.7,
-          stream: false
-        })
+        body: JSON.stringify({ prompt })
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`DeepSeek API error: ${response.status} - ${errorText}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Chat service error');
       }
 
       const data = await response.json();
-
-      if (data.choices && data.choices[0] && data.choices[0].message) {
-        return data.choices[0].message.content;
-      } else {
-        throw new Error('Invalid response format from DeepSeek API');
-      }
+      return data.content;
     } catch (error) {
-      console.error('DeepSeek API error:', error);
+      console.error('Chat API error:', error);
       throw error;
     }
   }
@@ -130,8 +104,8 @@ Please ask me specific questions about farming, and I'll provide practical advic
   async generateResponse(prompt) {
     try {
       switch (this.serviceType) {
-        case AI_SERVICES.DEEPSEEK:
-          return await this.callDeepSeekAPI(prompt);
+        case AI_SERVICES.GEMINI:
+          return await this.callGeminiAPI(prompt);
         case AI_SERVICES.LOCAL:
         default:
           return await this.callLocalAI(prompt);
@@ -156,6 +130,7 @@ const predefinedQuestions = [
 
 const ChatBot = ({ visible, onClose }) => {
   const { t } = useTranslation();
+  const { BACKEND_URL } = useAuthContext();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [conversationStarted, setConversationStarted] = useState(false);
@@ -164,21 +139,20 @@ const ChatBot = ({ visible, onClose }) => {
   const [currentAIService, setCurrentAIService] = useState(AI_SERVICES.LOCAL);
   const [availableServices, setAvailableServices] = useState([AI_SERVICES.LOCAL]);
 
-  // Detect available AI services based on API keys
+  // Detect available AI services — DeepSeek is available if backend is configured
   useEffect(() => {
     const detectedServices = [AI_SERVICES.LOCAL];
 
-    if (import.meta.env.VITE_DEEPSEEK_KEY) {
-      detectedServices.push(AI_SERVICES.DEEPSEEK);
+    if (BACKEND_URL) {
+      detectedServices.push(AI_SERVICES.GEMINI);
     }
 
     setAvailableServices(detectedServices);
 
-    // Prefer DeepSeek if available
-    if (detectedServices.includes(AI_SERVICES.DEEPSEEK)) {
-      setCurrentAIService(AI_SERVICES.DEEPSEEK);
+    if (detectedServices.includes(AI_SERVICES.GEMINI)) {
+      setCurrentAIService(AI_SERVICES.GEMINI);
     }
-  }, []);
+  }, [BACKEND_URL]);
 
   // Save messages to localStorage
   const saveMessagesToLocalStorage = (messages) => {
@@ -222,7 +196,7 @@ const ChatBot = ({ visible, onClose }) => {
     setLoading(true);
 
     try {
-      const aiService = new AIService(currentAIService);
+      const aiService = new AIService(currentAIService, BACKEND_URL);
       const botResponse = await aiService.generateResponse(message);
       const botMessage = { text: botResponse, user: 'bot' };
 
@@ -254,7 +228,7 @@ const ChatBot = ({ visible, onClose }) => {
   const switchAIService = (service) => {
     setCurrentAIService(service);
     // Add a notification message
-    const serviceName = service === AI_SERVICES.DEEPSEEK ? 'DeepSeek AI' : 'Local Knowledge Base';
+    const serviceName = service === AI_SERVICES.GEMINI ? 'Gemini AI' : 'Local Knowledge Base';
     const notification = {
       text: `Switched to ${serviceName}. How can I help you with farming today?`,
       user: 'bot'
@@ -277,9 +251,9 @@ const ChatBot = ({ visible, onClose }) => {
           <div>
             <h3 className="text-xl font-semibold">{t('chatbot') || 'KrishiAi Assistant'}</h3>
             <div className="text-xs text-green-200 flex items-center">
-              <span className={`w-2 h-2 rounded-full mr-1 ${currentAIService === AI_SERVICES.DEEPSEEK ? 'bg-blue-400' : 'bg-yellow-400'
+              <span className={`w-2 h-2 rounded-full mr-1 ${currentAIService === AI_SERVICES.GEMINI ? 'bg-blue-400' : 'bg-yellow-400'
                 }`}></span>
-              {currentAIService === AI_SERVICES.DEEPSEEK ? 'DeepSeek AI' : 'Local Knowledge'}
+              {currentAIService === AI_SERVICES.GEMINI ? 'Gemini AI' : 'Local Knowledge'}
             </div>
           </div>
         </div>
@@ -310,11 +284,11 @@ const ChatBot = ({ visible, onClose }) => {
               key={service}
               onClick={() => switchAIService(service)}
               className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${currentAIService === service
-                  ? 'bg-white text-green-600'
-                  : 'bg-green-600 text-white hover:bg-green-700'
+                ? 'bg-white text-green-600'
+                : 'bg-green-600 text-white hover:bg-green-700'
                 }`}
             >
-              {service === AI_SERVICES.DEEPSEEK ? 'DeepSeek AI' : 'Local'}
+              {service === AI_SERVICES.GEMINI ? 'Gemini AI' : 'Local'}
             </button>
           ))}
         </div>
@@ -345,8 +319,8 @@ const ChatBot = ({ visible, onClose }) => {
             >
               <div
                 className={`max-w-[80%] px-4 py-2 rounded-2xl ${msg.user === 'user'
-                    ? 'bg-green-500 text-white rounded-br-none'
-                    : 'bg-white text-green-800 border border-green-200 rounded-bl-none shadow-sm'
+                  ? 'bg-green-500 text-white rounded-br-none'
+                  : 'bg-white text-green-800 border border-green-200 rounded-bl-none shadow-sm'
                   }`}
               >
                 <div className="text-sm whitespace-pre-wrap">
@@ -372,7 +346,7 @@ const ChatBot = ({ visible, onClose }) => {
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
                 <span className="text-sm">
-                  {currentAIService === AI_SERVICES.DEEPSEEK ? 'Consulting DeepSeek AI...' : 'Thinking...'}
+                  {currentAIService === AI_SERVICES.GEMINI ? 'Consulting Gemini AI...' : 'Thinking...'}
                 </span>
               </div>
             </div>
@@ -425,7 +399,7 @@ const ChatBot = ({ visible, onClose }) => {
         </div>
 
         <div className="text-xs text-gray-500 text-center mt-2">
-          Powered by {currentAIService === AI_SERVICES.DEEPSEEK ? 'DeepSeek AI' : 'Local Agricultural Knowledge'}
+          Powered by {currentAIService === AI_SERVICES.GEMINI ? 'Google Gemini AI' : 'Local Agricultural Knowledge'}
         </div>
       </div>
     </div>

@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { toast } from 'react-hot-toast';
-import { 
-    FaCloudRain, FaTemperatureHigh, FaTint, FaCity, 
-    FaCalendarAlt, FaSearchLocation, FaWind, FaEye, FaClock 
+import {
+    FaCloudRain, FaTemperatureHigh, FaTint, FaCity,
+    FaCalendarAlt, FaSearchLocation, FaWind, FaEye, FaClock
 } from 'react-icons/fa';
 import { WiDaySunny, WiCloudy, WiRain, WiThunderstorm, WiSnow, WiFog } from 'react-icons/wi';
 import { useTranslation } from 'react-i18next';
 
 const RainfallPrediction = () => {
     const { t } = useTranslation();
-    const { ML_BACKEND_URL } = useAuthContext();
+    const { ML_BACKEND_URL, ML_API_KEY } = useAuthContext();
     const [loading, setLoading] = useState(false);
     const [weatherLoading, setWeatherLoading] = useState(false);
     const [prediction, setPrediction] = useState(null);
     const [weatherData, setWeatherData] = useState(null);
-    
-    const OPEN_WEATHER_API_KEY = "d9cd7656c459dff4f0527fdf1bdd2485"; 
+
+    const OPEN_WEATHER_API_KEY = import.meta.env.VITE_OPENWEATHER_KEY;
 
     const [formData, setFormData] = useState({
         city: '',
         state: '',
         current_temp: '',
         current_humidity: '',
-        current_month :new Date().getMonth() + 1
+        current_month: new Date().getMonth() + 1
     });
 
     const getWeatherIcon = (condition) => {
@@ -56,7 +56,7 @@ const RainfallPrediction = () => {
             if (!response.ok) throw new Error('Weather data not found');
 
             const data = await response.json();
-            console.log("backend data : ",data);
+            console.log("backend data : ", data);
             setWeatherData(data);
 
             setFormData(prev => ({
@@ -77,8 +77,8 @@ const RainfallPrediction = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if(!formData.current_temp || !formData.current_humidity) {
+
+        if (!formData.current_temp || !formData.current_humidity) {
             toast.error("Please fetch weather data or enter manually.");
             return;
         }
@@ -89,7 +89,7 @@ const RainfallPrediction = () => {
         try {
             const response = await fetch(`${ML_BACKEND_URL}/api/predict/rainfall`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-API-Key': ML_API_KEY },
                 body: JSON.stringify(formData)
             });
 
@@ -149,7 +149,7 @@ const RainfallPrediction = () => {
                             <h2 className="text-xl font-semibold text-white mb-6 flex items-center border-b border-green-200 pb-2">
                                 <FaSearchLocation className="mr-2 text-blue-500" /> {t('location_details')}
                             </h2>
-                            
+
                             <div className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
@@ -192,14 +192,14 @@ const RainfallPrediction = () => {
 
                         {/* ML Prediction Button Section */}
                         <div className="bg-white border border-green-200 rounded-xl p-6 shadow-lg">
-                             <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-2 gap-4 mb-4">
                                     <div>
                                         <label className="block text-xs text-gray-500 mb-1 uppercase">{t('temperature')}</label>
-                                        <input 
-                                            type="number" 
-                                            name="current_temp" 
-                                            value={formData.current_temp} 
+                                        <input
+                                            type="number"
+                                            name="current_temp"
+                                            value={formData.current_temp}
                                             onChange={handleChange}
                                             className="w-full bg-[#FEFAE0] border border-green-200 rounded p-2 text-white"
                                             placeholder="Auto-filled"
@@ -207,10 +207,10 @@ const RainfallPrediction = () => {
                                     </div>
                                     <div>
                                         <label className="block text-xs text-gray-500 mb-1 uppercase">{t('humidity')}</label>
-                                        <input 
-                                            type="number" 
-                                            name="current_humidity" 
-                                            value={formData.current_humidity} 
+                                        <input
+                                            type="number"
+                                            name="current_humidity"
+                                            value={formData.current_humidity}
                                             onChange={handleChange}
                                             className="w-full bg-[#FEFAE0] border border-green-200 rounded p-2 text-white"
                                             placeholder="Auto-filled"
@@ -292,22 +292,22 @@ const RainfallPrediction = () => {
                                 <h2 className="text-xl font-semibold text-white mb-6 border-b border-green-200 pb-2">
                                     {t('rainfall_predictions')}
                                 </h2>
-                                
+
                                 <div className="grid grid-cols-3 gap-3 mb-6">
-                                    <PredictionCard 
-                                        title={t('hours_24')} 
-                                        result={prediction.rainfall_24h} 
-                                        confidence={prediction.confidence_24h} 
+                                    <PredictionCard
+                                        title={t('hours_24')}
+                                        result={prediction.rainfall_24h}
+                                        confidence={prediction.confidence_24h}
                                     />
-                                    <PredictionCard 
-                                        title={t('hours_48')} 
-                                        result={prediction.rainfall_48h} 
-                                        confidence={prediction.confidence_48h} 
+                                    <PredictionCard
+                                        title={t('hours_48')}
+                                        result={prediction.rainfall_48h}
+                                        confidence={prediction.confidence_48h}
                                     />
-                                    <PredictionCard 
-                                        title={t('hours_72')} 
-                                        result={prediction.rainfall_72h} 
-                                        confidence={prediction.confidence_72h} 
+                                    <PredictionCard
+                                        title={t('hours_72')}
+                                        result={prediction.rainfall_72h}
+                                        confidence={prediction.confidence_72h}
                                     />
                                 </div>
 

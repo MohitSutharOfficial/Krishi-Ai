@@ -22,8 +22,19 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 
 app = Flask(__name__)
-# Allow React frontend to talk to this API
-CORS(app) 
+# Allow only specific origins
+ALLOWED_ORIGINS = os.environ.get('ALLOWED_ORIGINS', '').split(',')
+CORS(app, origins=[o.strip() for o in ALLOWED_ORIGINS if o.strip()])
+
+# API key middleware — protects all /api/ routes
+ML_API_KEY = os.environ.get('ML_API_KEY', '')
+
+@app.before_request
+def check_api_key():
+    if request.path.startswith('/api/') and request.method != 'OPTIONS':
+        key = request.headers.get('X-API-Key', '')
+        if not ML_API_KEY or key != ML_API_KEY:
+            return jsonify({'error': 'Unauthorized'}), 401
 
 # --- Configuration ---
 UPLOAD_FOLDER = 'static/uploads'

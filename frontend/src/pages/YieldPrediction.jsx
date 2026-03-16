@@ -143,7 +143,7 @@ const SelectField = ({
 
 const YieldPrediction = () => {
   const { t } = useTranslation();
-  const { ML_BACKEND_URL } = useAuthContext();
+  const { ML_BACKEND_URL, ML_API_KEY } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
@@ -177,7 +177,7 @@ const YieldPrediction = () => {
     try {
       const response = await fetch(`${ML_BACKEND_URL}/api/predict/yield`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "X-API-Key": ML_API_KEY },
         body: JSON.stringify(formData),
       });
       const data = await response.json();
