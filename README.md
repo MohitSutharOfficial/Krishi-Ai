@@ -7,7 +7,7 @@ AI-powered agricultural platform empowering Indian farmers with crop recommendat
 
 backend: [https://krishi-ai-orcin.vercel.app/](https://krishi-ai-orcin.vercel.app/)
 
-frontend: [https://krishi-ai.pages.dev/](https://krishi-ai.pages.dev/)
+frontend: [https://krishi-ai.pages.dev/](https://krishi-ai.pages.dev/) And [https://krishiai.mohitsuthar.me/](https://krishiai.mohitsuthar.me/)
 
 Ml Model: [https://mohitsuthar-krishiai-ml.hf.space/](https://mohitsuthar-krishiai-ml.hf.space/)
 
