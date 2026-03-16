@@ -3,11 +3,15 @@
 
 AI-powered agricultural platform empowering Indian farmers with crop recommendations, disease detection, weather forecasts, market prices, and community support.
 
-**Live**:
+**Live**: 
+
 backend: [https://krishi-ai-orcin.vercel.app/](https://krishi-ai-orcin.vercel.app/)
+
 frontend: [https://krishi-ai.pages.dev/](https://krishi-ai.pages.dev/)
+
 Ml Model: [https://mohitsuthar-krishiai-ml.hf.space/](https://mohitsuthar-krishiai-ml.hf.space/)
-Mi Model on Hugging Face: [https://huggingface.co/MohitSutharOfficial/krishiai-crop-recommendation](https://huggingface.co/MohitSutharOfficial/krishiai-crop-recommendation)
+
+Ml Model on Hugging Face: [https://huggingface.co/MohitSutharOfficial/krishiai-crop-recommendation](https://huggingface.co/MohitSutharOfficial/krishiai-crop-recommendation)
 
 ## Features
 
