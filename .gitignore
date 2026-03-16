@@ -44,6 +44,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.log
+krishiai-ml
 
 # --- Virtual Environments ---
 venv/
