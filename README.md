@@ -40,7 +40,7 @@
 | Frontend (Mirror) | [krishi-ai.pages.dev](https://krishi-ai.pages.dev/) |
 | Backend API | [krishi-ai-orcin.vercel.app](https://krishi-ai-orcin.vercel.app/) |
 | ML Model API | [mohitsuthar-krishiai-ml.hf.space](https://mohitsuthar-krishiai-ml.hf.space/) |
-| Our ML jModel on Hugging Face | [huggingface.co/spaces/mohitsuthar/krishiai-ml](https://huggingface.co/spaces/mohitsuthar/krishiai-ml) |
+| Our ML Model on Hugging Face | [huggingface.co/spaces/mohitsuthar/krishiai-ml](https://huggingface.co/spaces/mohitsuthar/krishiai-ml) |
 
 ---
 
