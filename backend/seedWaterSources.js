@@ -6,7 +6,7 @@ import User from './models/user.model.js'; // Adjust path to your User model
 dotenv.config();
 
 // Configuration
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://roshansuthar2023:roshan1234@cluster0.3n74hjr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const MONGO_URI = process.env.MONGO_URI;
 const TOTAL_SOURCES_TO_GENERATE = 5;
 
 const sampleVillages = [
