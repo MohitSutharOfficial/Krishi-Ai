@@ -169,8 +169,8 @@ export default function Navbar() {
     <div className="nav-menu">
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-            ? "py-2 bg-white shadow-lg border-b border-green-200"
-            : "py-3 bg-white/95 backdrop-blur-sm"
+          ? "py-2 bg-white shadow-lg border-b border-green-200"
+          : "py-3 bg-white/95 backdrop-blur-sm"
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
@@ -188,8 +188,8 @@ export default function Navbar() {
                 key={index}
                 to={link.to}
                 className={`px-2 py-1.5 rounded-md text-xs md:text-sm font-medium transition-colors ${isActive(link.to)
-                    ? "text-green-700 bg-green-100 font-bold"
-                    : `${scrolled ? "text-gray-700 hover:bg-green-50" : "text-gray-700 hover:bg-green-50"}`
+                  ? "text-green-700 bg-green-100 font-bold"
+                  : `${scrolled ? "text-gray-700 hover:bg-green-50" : "text-gray-700 hover:bg-green-50"}`
                   }`}
               >
                 {link.name}
@@ -287,7 +287,7 @@ export default function Navbar() {
                         <button
                           key={e.value}
                           onClick={() => changeLanguage(e.value)}
-                          className="flex items-center w-full px-3 py-1.5 text-xs text-gray-700 hover:bg-green-50"
+                          className="flex items-center w-full px-2 py-1.5 text-xs text-gray-700 hover:bg-green-50"
                         >
                           <span className="mr-2">in</span> {e.name}
                         </button>
@@ -509,16 +509,16 @@ export default function Navbar() {
                 <div className="flex space-x-1.5">
                   <Link to="/login">
                     <button className={`px-2 py-1 text-xs font-medium rounded ${scrolled
-                        ? "bg-green-600 text-white hover:bg-green-700"
-                        : "bg-white text-green-800 hover:bg-green-50"
+                      ? "bg-green-600 text-white hover:bg-green-700"
+                      : "bg-white text-green-800 hover:bg-green-50"
                       }`}>
                       {t('login')}
                     </button>
                   </Link>
                   <Link to="/signup" className="hidden sm:block">
                     <button className={`px-2 py-1 text-xs font-medium rounded ${scrolled
-                        ? "bg-blue-600 text-white hover:bg-blue-700"
-                        : "bg-green-600 text-white hover:bg-green-700"
+                      ? "bg-blue-600 text-white hover:bg-blue-700"
+                      : "bg-green-600 text-white hover:bg-green-700"
                       }`}>
                       {t('sign_up')}
                     </button>
