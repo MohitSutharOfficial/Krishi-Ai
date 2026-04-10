@@ -119,13 +119,13 @@ Please ask me specific questions about farming, and I'll provide practical advic
   }
 }
 
-const predefinedQuestions = [
-  'What are the best crops to grow in summer season?',
-  'How can I improve soil quality?',
-  'What are the current market prices for wheat?',
-  'Can you provide tips for pest control?',
-  'What are the upcoming weather conditions?',
-  'Which fertilizers should I use for wheat?',
+const predefinedQuestionData = [
+  { key: 'chatbot_q1', message: 'What are the best crops to grow in summer season?' },
+  { key: 'chatbot_q2', message: 'How can I improve soil quality?' },
+  { key: 'chatbot_q3', message: 'What are the current market prices for wheat?' },
+  { key: 'chatbot_q4', message: 'Can you provide tips for pest control?' },
+  { key: 'chatbot_q5', message: 'What are the upcoming weather conditions?' },
+  { key: 'chatbot_q6', message: 'Which fertilizers should I use for wheat?' },
 ];
 
 const ChatBot = ({ visible, onClose }) => {
@@ -206,7 +206,7 @@ const ChatBot = ({ visible, onClose }) => {
     } catch (error) {
       console.error('Error in sendMessage:', error);
       const errorMessage = {
-        text: "I'm currently experiencing technical difficulties. Please try again later or check your internet connection. Meanwhile, I can help you with basic agricultural knowledge.",
+        text: t('chatbot_error_msg'),
         user: 'bot'
       };
       const updatedMessages = [...newMessages, errorMessage];
@@ -264,7 +264,7 @@ const ChatBot = ({ visible, onClose }) => {
               className="text-sm bg-green-700 hover:bg-green-800 px-2 py-1 rounded transition duration-300"
               title="Clear chat"
             >
-              Clear
+              {t('chatbot_clear')}
             </button>
           )}
           <button
@@ -302,11 +302,11 @@ const ChatBot = ({ visible, onClose }) => {
               {t('start_a_conversation') || 'Start a conversation with our farming expert!'}
             </div>
             <div className="text-sm text-green-500 mb-4">
-              Ask about crops, weather, market prices, or farming techniques.
+              {t('chatbot_ask_about')}
             </div>
             {currentAIService === AI_SERVICES.LOCAL && (
               <div className="text-xs text-yellow-600 bg-yellow-50 p-2 rounded-lg">
-                Using comprehensive local agricultural knowledge base
+                {t('chatbot_local_note')}
               </div>
             )}
           </div>
@@ -326,7 +326,7 @@ const ChatBot = ({ visible, onClose }) => {
                 <div className="text-sm whitespace-pre-wrap">
                   {msg.user === 'bot' && (
                     <div className="font-semibold text-green-600 text-xs mb-1">
-                      KrishiAi Assistant
+                      {t('chatbot_assistant_name')}
                     </div>
                   )}
                   {msg.text}
@@ -346,7 +346,7 @@ const ChatBot = ({ visible, onClose }) => {
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
                 <span className="text-sm">
-                  {currentAIService === AI_SERVICES.GEMINI ? 'Consulting Gemini AI...' : 'Thinking...'}
+                  {currentAIService === AI_SERVICES.GEMINI ? t('chatbot_consulting') : t('chatbot_thinking')}
                 </span>
               </div>
             </div>
@@ -363,14 +363,14 @@ const ChatBot = ({ visible, onClose }) => {
               {t('quick_questions') || 'Quick Questions:'}
             </p>
             <div className="grid grid-cols-1 gap-1">
-              {predefinedQuestions.map((question, index) => (
+              {predefinedQuestionData.map((q, index) => (
                 <button
                   key={index}
-                  onClick={() => sendMessage(question)}
+                  onClick={() => sendMessage(q.message)}
                   disabled={loading}
                   className="bg-green-50 text-green-800 px-3 py-1.5 rounded-lg hover:bg-green-100 transition-colors duration-200 text-left text-xs disabled:opacity-50 leading-snug"
                 >
-                  {question}
+                  {t(q.key)}
                 </button>
               ))}
             </div>
@@ -399,7 +399,7 @@ const ChatBot = ({ visible, onClose }) => {
         </div>
 
         <div className="text-xs text-gray-500 text-center mt-2">
-          Powered by {currentAIService === AI_SERVICES.GEMINI ? 'Google Gemini AI' : 'Local Agricultural Knowledge'}
+          {t('chatbot_powered_by')} {currentAIService === AI_SERVICES.GEMINI ? 'Google Gemini AI' : t('chatbot_local_note')}
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
+import { useTranslation } from 'react-i18next';
 
 const categories = [
   { name: 'Seeds', image: 'https://hips.hearstapps.com/hmg-prod/images/flaxseed-close-up-royalty-free-image-1636392298.jpg' },
@@ -33,6 +34,7 @@ const categories = [
 ];
 
 const Categories = ({ onCategoryChange }) => {
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showAll, setShowAll] = useState(false);
 
@@ -53,7 +55,7 @@ const Categories = ({ onCategoryChange }) => {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400">
-            Categories
+            {t('categories_title')}
           </span>
         </h2>
         {selectedCategory && (
@@ -64,7 +66,7 @@ const Categories = ({ onCategoryChange }) => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
-            Clear Filter
+            {t('clear_filter')}
           </button>
         )}
       </div>
@@ -108,7 +110,7 @@ const Categories = ({ onCategoryChange }) => {
                 ? 'text-green-600 dark:text-green-400'
                 : 'text-gray-700 dark:text-gray-300 group-hover:text-green-600 dark:group-hover:text-green-400'
             }`}>
-              {category.name}
+              {t(`cat_${category.name.toLowerCase().replace(/\s+/g, '_')}`, category.name)}
             </p>
           </div>
         ))}

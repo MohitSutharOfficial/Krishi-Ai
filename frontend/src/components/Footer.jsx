@@ -71,20 +71,20 @@ const Footer = () => {
               <img src={krishaiLogo} alt="KrishiAi" className="h-12 w-full drop-shadow-2xl" />
             </div>
             <p className="text-gray-300 max-w-md text-center md:text-left text-sm">
-              Empowering farmers with technology, connecting communities, and promoting sustainable agriculture for a better future.
+              {t('footer_tagline')}
             </p>
           </div>
 
           <div className="w-full sm:w-96 md:w-auto">
-            <h3 className="text-lg font-semibold mb-3 text-green-300 text-center md:text-left">Subscribe to our Newsletter</h3>
+            <h3 className="text-lg font-semibold mb-3 text-green-300 text-center md:text-left">{t('footer_newsletter_title')}</h3>
             <div className="flex flex-col sm:flex-row">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t('footer_email_placeholder')}
                 className="px-4 py-2 rounded-md sm:rounded-r-none bg-green-900 border border-green-700 text-white focus:outline-none focus:ring-1 focus:ring-[#F4A300] w-full mb-2 sm:mb-0"
               />
               <button className="bg-[#F4A300] hover:bg-[#FFD166] text-gray-900 font-bold px-4 py-2 rounded-md sm:rounded-l-none transition duration-300 whitespace-nowrap">
-                Subscribe
+                {t('footer_subscribe')}
               </button>
             </div>
           </div>
@@ -163,7 +163,7 @@ const Footer = () => {
 
         {/* Social media links */}
         <div className="py-6 px-4 sm:px-6 bg-green-900/50 rounded-lg mb-8">
-          <h3 className="text-center text-lg font-semibold mb-4 text-green-300">Follow Us</h3>
+          <h3 className="text-center text-lg font-semibold mb-4 text-green-300">{t('footer_follow_us')}</h3>
           <div className="flex flex-wrap justify-center gap-4">
             {socialLinks.map((social, index) => (
               <a
@@ -187,20 +187,20 @@ const Footer = () => {
         <div className="text-center text-gray-400 text-sm">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4">
             <Link to="/privacy" className="hover:text-green-300 transition-colors duration-300 flex items-center">
-              <FaSeedling className="mr-1 text-green-500" /> Privacy Policy
+              <FaSeedling className="mr-1 text-green-500" /> {t('privacy_policy')}
             </Link>
             <span className="hidden sm:inline">|</span>
             <Link to="/terms" className="hover:text-green-300 transition-colors duration-300 flex items-center">
-              <FaSeedling className="mr-1 text-green-500" /> Terms of Service
+              <FaSeedling className="mr-1 text-green-500" /> {t('terms_of_service')}
             </Link>
             <span className="hidden sm:inline">|</span>
             <Link to="/faq" className="hover:text-green-300 transition-colors duration-300 flex items-center">
-              <FaSeedling className="mr-1 text-green-500" /> FAQs
+              <FaSeedling className="mr-1 text-green-500" /> {t('faqs')}
             </Link>
           </div>
-          <p className="mb-2">&copy; {new Date().getFullYear()} KrishiAi. All rights reserved.</p>
+          <p className="mb-2">&copy; {new Date().getFullYear()} KrishiAi. {t('footer_all_rights')}</p>
           <p className="text-xs text-gray-500">
-            Designed with ❤️ for farmers everywhere
+            {t('footer_designed_with_love')}
           </p>
         </div>
       </div>
