@@ -597,7 +597,7 @@ const RealTimeMarket = () => {
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-sm font-medium opacity-80">{title}</h3>
-            <p className="text-2xl font-bold mt-1">{value}</p>
+            <p className="text-xl font-bold mt-1 break-words leading-tight">{value}</p>
           </div>
           <div className="text-2xl opacity-80">{icon}</div>
         </div>
@@ -613,11 +613,11 @@ const RealTimeMarket = () => {
   };
 
   return (
-    <div className="bg-[#FEFAE0] min-h-screen flex flex-col text-white">
+    <div className="bg-[#FEFAE0] min-h-screen flex flex-col text-gray-800">
       <div className="flex-grow p-4 md:p-8 mt-16">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between w-full mb-6">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-0">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 md:mb-0">
               {t('realTimeMarket')}
             </h1>
 
@@ -654,7 +654,7 @@ const RealTimeMarket = () => {
                 <select
                   value={selectedTicker}
                   onChange={handleTickerChange}
-                  className="px-4 py-2 border border-green-200 rounded-md bg-white text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="px-4 py-2 border border-green-200 rounded-md bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   <option value="" disabled>{t('selectCommodity')}</option>
                   {uniqueTickers.map((ticker, index) => (
@@ -709,7 +709,7 @@ const RealTimeMarket = () => {
               onClick={() => setActiveTab('overview')}
               className={`px-4 py-2 font-medium ${activeTab === 'overview'
                   ? 'text-green-500 border-b-2 border-green-500'
-                  : 'text-gray-500 hover:text-white'
+                  : 'text-gray-500 hover:text-green-700'
                 }`}
             >
               {t('overview')}
@@ -718,7 +718,7 @@ const RealTimeMarket = () => {
               onClick={() => setActiveTab('charts')}
               className={`px-4 py-2 font-medium ${activeTab === 'charts'
                   ? 'text-green-500 border-b-2 border-green-500'
-                  : 'text-gray-500 hover:text-white'
+                  : 'text-gray-500 hover:text-green-700'
                 }`}
             >
               {t('charts')}
@@ -727,7 +727,7 @@ const RealTimeMarket = () => {
               onClick={() => setActiveTab('data')}
               className={`px-4 py-2 font-medium ${activeTab === 'data'
                   ? 'text-green-500 border-b-2 border-green-500'
-                  : 'text-gray-500 hover:text-white'
+                  : 'text-gray-500 hover:text-green-700'
                 }`}
             >
               {t('dataTable')}
@@ -736,7 +736,7 @@ const RealTimeMarket = () => {
               onClick={() => setActiveTab('insights')}
               className={`px-4 py-2 font-medium ${activeTab === 'insights'
                   ? 'text-green-500 border-b-2 border-green-500'
-                  : 'text-gray-500 hover:text-white'
+                  : 'text-gray-500 hover:text-green-700'
                 }`}
             >
               {t('marketInsights')}
@@ -783,7 +783,7 @@ const RealTimeMarket = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {marketStats.categoryStats?.map((category, index) => (
                       <div key={index} className="bg-green-50 rounded-lg p-4 shadow">
-                        <h3 className="text-lg font-medium text-white mb-2">{category.category}</h3>
+                        <h3 className="text-lg font-medium text-gray-800 mb-2">{category.category}</h3>
                         <div className="grid grid-cols-2 gap-2 text-sm">
                           <div>
                             <p className="text-gray-500">{t('products')}</p>
@@ -808,7 +808,7 @@ const RealTimeMarket = () => {
                 </div>
 
                 {/* Category Comparison Chart */}
-                <div className={`mb-8 h-${chartSize === 'small' ? '64' : chartSize === 'medium' ? '80' : '96'}`}>
+                <div className="mb-8" style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
                   <h2 className="text-2xl font-semibold text-green-400 mb-4">
                     {t('categoryComparison')}
                   </h2>
@@ -833,13 +833,21 @@ const RealTimeMarket = () => {
                         },
                       },
                       scales: {
+                        x: {
+                          ticks: {
+                            color: '#6b7280',
+                            maxRotation: 45,
+                            minRotation: 0,
+                          },
+                        },
                         y: {
                           beginAtZero: true,
                           title: {
                             display: true,
                             text: t('price'),
-                            color: 'white',
+                            color: '#374151',
                           },
+                          ticks: { color: '#6b7280' },
                         },
                         y1: {
                           beginAtZero: true,
@@ -847,8 +855,9 @@ const RealTimeMarket = () => {
                           title: {
                             display: true,
                             text: t('volatilityPercentage'),
-                            color: 'white',
+                            color: '#374151',
                           },
+                          ticks: { color: '#6b7280' },
                           grid: {
                             drawOnChartArea: false,
                           },
@@ -914,8 +923,8 @@ const RealTimeMarket = () => {
             {activeTab === 'charts' && filteredData.length > 0 && (
               <div className="space-y-8">
                 {/* Price Comparison Bar Chart */}
-                <div className={`h-${chartSize === 'small' ? '64' : chartSize === 'medium' ? '80' : '96'}`}>
-                  <h2 className="text-2xl font-semibold text-green-400 mb-4 text-center">
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
                     {t('priceComparison')}
                   </h2>
                   <Bar
@@ -935,16 +944,21 @@ const RealTimeMarket = () => {
                       },
                       scales: {
                         x: {
-                          stacked: true,
+                          ticks: {
+                            color: '#6b7280',
+                            maxRotation: 45,
+                            minRotation: 0,
+                            font: { size: 11 },
+                          },
                         },
                         y: {
-                          stacked: true,
                           beginAtZero: true,
                           title: {
                             display: true,
                             text: t('price'),
-                            color: 'white',
+                            color: '#374151',
                           },
+                          ticks: { color: '#6b7280' },
                         },
                       },
                     }}
@@ -952,8 +966,8 @@ const RealTimeMarket = () => {
                 </div>
 
                 {/* Historical Price Trends */}
-                <div className={`h-${chartSize === 'small' ? '64' : chartSize === 'medium' ? '80' : '96'}`}>
-                  <h2 className="text-2xl font-semibold text-green-400 mb-4 text-center">
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
                     {t('historicalPriceTrends')}
                   </h2>
                   <Line
@@ -977,16 +991,18 @@ const RealTimeMarket = () => {
                           title: {
                             display: true,
                             text: t('date'),
-                            color: 'white',
+                            color: '#374151',
                           },
+                          ticks: { color: '#6b7280' },
                         },
                         y: {
                           beginAtZero: true,
                           title: {
                             display: true,
                             text: t('price'),
-                            color: 'white',
+                            color: '#374151',
                           },
+                          ticks: { color: '#6b7280' },
                         },
                       },
                     }}
@@ -994,8 +1010,8 @@ const RealTimeMarket = () => {
                 </div>
 
                 {/* Market Share Pie Chart */}
-                <div className={`h-${chartSize === 'small' ? '64' : chartSize === 'medium' ? '80' : '96'}`}>
-                  <h2 className="text-2xl font-semibold text-green-400 mb-4 text-center">
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
                     {t('marketShare')}
                   </h2>
                   <Pie
@@ -1018,8 +1034,8 @@ const RealTimeMarket = () => {
                 </div>
 
                 {/* Market Comparison Radar Chart */}
-                <div className={`h-${chartSize === 'small' ? '64' : chartSize === 'medium' ? '80' : '96'}`}>
-                  <h2 className="text-2xl font-semibold text-green-400 mb-4 text-center">
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
                     {t('marketComparison')}
                   </h2>
                   <Radar
@@ -1040,17 +1056,18 @@ const RealTimeMarket = () => {
                       scales: {
                         r: {
                           angleLines: {
-                            color: 'rgba(255, 255, 255, 0.2)',
+                            color: 'rgba(0, 0, 0, 0.15)',
                           },
                           grid: {
-                            color: 'rgba(255, 255, 255, 0.2)',
+                            color: 'rgba(0, 0, 0, 0.1)',
                           },
                           pointLabels: {
-                            color: 'white',
+                            color: '#374151',
+                            font: { size: 12 },
                           },
                           ticks: {
-                            color: 'rgba(255, 255, 255, 0.7)',
-                            backdropColor: 'transparent',
+                            color: '#6b7280',
+                            backdropColor: 'rgba(255, 255, 255, 0.75)',
                           },
                         },
                       },
@@ -1059,8 +1076,8 @@ const RealTimeMarket = () => {
                 </div>
 
                 {/* Price Range Doughnut Chart */}
-                <div className={`h-${chartSize === 'small' ? '64' : chartSize === 'medium' ? '80' : '96'}`}>
-                  <h2 className="text-2xl font-semibold text-green-400 mb-4 text-center">
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
                     {t('priceRange')}
                   </h2>
                   <Doughnut
@@ -1098,7 +1115,7 @@ const RealTimeMarket = () => {
                         {columns.map((col, index) => (
                           <th
                             key={index}
-                            className="border border-green-200 p-3 text-left cursor-pointer hover:bg-gray-600"
+                            className="border border-green-200 p-3 text-left cursor-pointer hover:bg-green-100"
                             onClick={() => {
                               const direction =
                                 sortConfig.key === col.accessor && sortConfig.direction === 'ascending'
