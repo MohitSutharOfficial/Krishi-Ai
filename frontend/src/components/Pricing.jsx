@@ -5,7 +5,9 @@ import { useTranslation } from 'react-i18next';
 const localPricingPlans = [
   {
     title: 'Basic Plan',
+    titleKey: 'pricingPlans.basicPlan.title',
     price: '₹1500/month',
+    priceKey: 'pricingPlans.basicPlan.price',
     pricepermonth: 1500,
     features: [
       'Access to Agriculture Tools',
@@ -13,12 +15,16 @@ const localPricingPlans = [
       'Weekly Weather Updates',
       'Email Support',
     ],
+    featuresKey: 'pricingPlans.basicPlan.features',
     buttonText: 'Get Started',
+    buttonTextKey: 'pricingPlans.buttonText.getStarted',
     buttonColor: 'bg-green-600 hover:bg-green-900',
   },
   {
     title: 'Pro Plan',
+    titleKey: 'pricingPlans.proPlan.title',
     price: '₹3000/month',
+    priceKey: 'pricingPlans.proPlan.price',
     pricepermonth: 3000,
     features: [
       'All Basic Plan Features',
@@ -27,13 +33,17 @@ const localPricingPlans = [
       'Priority Email & Chat Support',
       'Expert Consultation Sessions',
     ],
+    featuresKey: 'pricingPlans.proPlan.features',
     buttonText: 'Upgrade Now',
+    buttonTextKey: 'pricingPlans.buttonText.upgradeNow',
     buttonColor: 'bg-black hover:bg-gray-900',
     popular: true,
   },
   {
     title: 'Enterprise Plan',
+    titleKey: 'pricingPlans.enterprisePlan.title',
     price: '₹5000/month',
+    priceKey: 'pricingPlans.enterprisePlan.price',
     pricepermonth: 5000,
     features: [
       'All Pro Plan Features',
@@ -42,7 +52,9 @@ const localPricingPlans = [
       '24/7 Support',
       'On-site Consultations',
     ],
+    featuresKey: 'pricingPlans.enterprisePlan.features',
     buttonText: 'Contact Us',
+    buttonTextKey: 'pricingPlans.buttonText.contactUs',
     buttonColor: 'bg-green-600 hover:bg-green-700',
   },
 ];
