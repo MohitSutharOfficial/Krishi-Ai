@@ -239,9 +239,9 @@ const ChatBot = ({ visible, onClose }) => {
   if (!visible) return null;
 
   return (
-    <div className="z-40 fixed bottom-20 right-4 w-96 h-[80vh] bg-white shadow-2xl rounded-lg overflow-hidden flex flex-col">
+    <div className="z-50 fixed bottom-24 md:bottom-20 right-3 md:right-4 w-[calc(100vw-1.5rem)] sm:w-96 bg-white shadow-2xl rounded-2xl overflow-hidden flex flex-col border border-gray-200" style={{ maxHeight: 'calc(100vh - 8rem)', height: '520px' }}>
       {/* Header */}
-      <div className="sticky top-0 z-50 bg-green-600 text-white px-4 py-3 flex items-center justify-between">
+      <div className="flex-shrink-0 bg-green-600 text-white px-4 py-3 flex items-center justify-between rounded-t-2xl">
         <div className="flex items-center">
           <img
             src="https://cdn-icons-png.flaticon.com/128/6231/6231457.png"
@@ -249,7 +249,7 @@ const ChatBot = ({ visible, onClose }) => {
             className="w-6 h-6 mr-2"
           />
           <div>
-            <h3 className="text-xl font-semibold">{t('chatbot') || 'KrishiAi Assistant'}</h3>
+            <h3 className="text-base font-semibold">{t('chatbot') || 'ChatBot'}</h3>
             <div className="text-xs text-green-200 flex items-center">
               <span className={`w-2 h-2 rounded-full mr-1 ${currentAIService === AI_SERVICES.GEMINI ? 'bg-blue-400' : 'bg-yellow-400'
                 }`}></span>
@@ -278,7 +278,7 @@ const ChatBot = ({ visible, onClose }) => {
 
       {/* AI Service Selector */}
       {availableServices.length > 1 && (
-        <div className="bg-green-500 px-4 py-2 flex justify-center space-x-4">
+        <div className="flex-shrink-0 bg-green-500 px-4 py-1.5 flex justify-center space-x-4">
           {availableServices.map(service => (
             <button
               key={service}
@@ -356,19 +356,19 @@ const ChatBot = ({ visible, onClose }) => {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-green-200 bg-white p-4">
+      <div className="flex-shrink-0 border-t border-green-200 bg-white p-3">
         {!conversationStarted && (
-          <div className="mb-3">
-            <p className="text-green-600 font-semibold mb-2 text-sm">
+          <div className="mb-2 max-h-40 overflow-y-auto">
+            <p className="text-green-600 font-semibold mb-1.5 text-xs">
               {t('quick_questions') || 'Quick Questions:'}
             </p>
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-1">
               {predefinedQuestions.map((question, index) => (
                 <button
                   key={index}
                   onClick={() => sendMessage(question)}
                   disabled={loading}
-                  className="bg-green-100 text-green-800 px-3 py-2 rounded-lg hover:bg-green-200 transition-colors duration-300 text-left text-sm disabled:opacity-50"
+                  className="bg-green-50 text-green-800 px-3 py-1.5 rounded-lg hover:bg-green-100 transition-colors duration-200 text-left text-xs disabled:opacity-50 leading-snug"
                 >
                   {question}
                 </button>
@@ -383,7 +383,7 @@ const ChatBot = ({ visible, onClose }) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
-            className="flex-1 px-4 py-2 border border-green-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 disabled:opacity-50"
+            className="flex-1 px-4 py-2 border border-green-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 disabled:opacity-50 text-sm"
             placeholder={t('type_a_message') || 'Type your farming question...'}
             onKeyPress={(e) => e.key === 'Enter' && !loading && sendMessage(input)}
           />
