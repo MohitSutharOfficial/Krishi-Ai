@@ -10,8 +10,8 @@
   "resources_title": "Gyan Setu",
   "resources": "Resources",
   "community": "Community",
-  "Plant Diseases Detection":"Rog Nidan",
-  "Smart Irrigation System":"Kushal Sinchai",
+  "Plant Diseases Detection": "Rog Nidan",
+  "Smart Irrigation System": "Kushal Sinchai",
   "joinThousands": "Join thousands of farmers who have transformed their business with real-time insights.",
   "makingAgricultureSmarter": "Making agriculture smarter, one insight at a time.",
   "keyFeatures": "Key Features",
@@ -103,7 +103,7 @@
       "description": "Essential tools for modern farming."
     }
   },
-  "marketplaceTitle":"Krishi Bazaar",
+  "marketplaceTitle": "Krishi Bazaar",
   "marketplace": {
     "title": "Krishi Bazaar",
     "searchPlaceholder": "Search for products...",
@@ -320,11 +320,9 @@
   "ocean_gradient": "Ocean gradient",
   "related_products": "Related Products",
   "similar_product": "Similar Product",
-  "home": "Home",
   "login_to_chat": "Please login to chat with the seller",
   "seller_information": "Seller Information",
   "seller_id": "Seller ID",
-  "member_since": "Member since",
   "meet_the_team": "Meet the Team",
   "careers": "Careers",
   "press_media": "Press & Media",
@@ -461,7 +459,6 @@
   "contact_details": "Contact Details",
   "mark_all_as_read": "Mark all as read",
   "view_all_notifications": "View all notifications",
-
   "news_feed_title": "Agriculture News Feed",
   "search_news_placeholder": "Search news...",
   "loading_news": "Loading latest news...",
@@ -473,7 +470,6 @@
   "read_more": "Read more",
   "prev_page": "Prev",
   "next_page": "Next",
-
   "digital_parchi": "Digital Parchi",
   "manage_irrigation": "Manage irrigation turns & requests",
   "request_water": "Request Water",
@@ -497,7 +493,6 @@
   "failed": "Failed",
   "server_error": "Server Error",
   "loading_parchi": "Loading Parchi System...",
-
   "checkout_title": "Checkout",
   "cart_step": "Cart",
   "checkout_step": "Checkout",
@@ -525,7 +520,6 @@
   "tax": "Tax",
   "proceed_to_payment": "Proceed to Payment",
   "account_required": "One or more items in your cart require an account. Sign in or create an account to continue.",
-
   "farmer_input_form": "Farmer Input Form",
   "location": "Location",
   "enter_location": "Enter your location",
@@ -545,10 +539,8 @@
   "fertilizer_usage": "Fertilizer Usage",
   "farm_size": "Farm Size",
   "additional_info": "Additional Information",
-
   "farming_resources": "Farming Resources",
   "all_filter": "All",
-
   "soil_results_title": "Soil Results and Recommendations",
   "soil_data": "Soil Data",
   "nutrition_content": "Nutrition Content",
@@ -567,12 +559,10 @@
   "nitrogen": "Nitrogen",
   "phosphorus": "Phosphorus",
   "potassium": "Potassium",
-
   "course_not_found": "Course not found.",
   "language_label": "Language",
   "course_content": "Course Content",
   "related_videos": "Related Videos",
-
   "plant_disease": "Plant Disease",
   "detection": "Detection",
   "disease_desc": "Upload an image of your plant to detect potential diseases and get treatment recommendations.",
@@ -589,7 +579,6 @@
   "analysis_complete": "Analysis complete",
   "analysis_failed": "Analysis failed",
   "remove_image": "Remove Image",
-
   "smart_yield_estimator": "Smart Yield Estimator",
   "production_parameters": "Production Parameters",
   "predict_yield": "Predict Yield",
@@ -606,7 +595,6 @@
   "yield_predicted": "Yield predicted successfully!",
   "prediction_failed": "Prediction failed",
   "server_connection_failed": "Server connection failed",
-
   "kushal_sinchai": "Smart Irrigation",
   "rainfall_prediction": "Rainfall Prediction",
   "rainfall_desc": "Predict rainfall for your area to plan irrigation schedules.",
@@ -621,7 +609,6 @@
   "hours_24": "24 Hours",
   "hours_48": "48 Hours",
   "hours_72": "72 Hours",
-
   "smart_crop": "Smart Crop",
   "recommendation_label": "Recommendation",
   "crop_desc": "Enter your soil and climate data for AI-powered crop recommendations.",
@@ -650,7 +637,6 @@
   "best_season": "Best Season",
   "ideal_temperature": "Ideal Temperature",
   "crop_ai": "Crop AI",
-
   "categories_title": "Categories",
   "clear_filter": "Clear Filter",
   "cat_seeds": "Seeds",
@@ -681,7 +667,6 @@
   "cat_beehives": "Beehives",
   "cat_composters": "Composters",
   "cat_solar_panels": "Solar Panels",
-
   "footer_tagline": "Empowering farmers with technology, connecting communities, and promoting sustainable agriculture for a better future.",
   "footer_newsletter_title": "Subscribe to our Newsletter",
   "footer_email_placeholder": "Enter your email",
@@ -690,15 +675,12 @@
   "terms_of_service": "Terms of Service",
   "footer_designed_with_love": "Designed with ❤️ for farmers everywhere",
   "footer_all_rights": "All rights reserved.",
-
   "notifications": "Notifications",
   "featuresSubtitle": "Discover the powerful tools and features that make our platform stand out.",
-
   "pricingPlans.subtitle": "Choose the perfect plan for your needs. Upgrade or downgrade at any time.",
   "pricingPlans.popularBadge": "MOST POPULAR",
   "pricingPlans.billingCycle": "per month, billed annually",
   "pricingPlans.guarantee": "30-day money-back guarantee. No questions asked.",
-
   "chatbot_clear": "Clear",
   "chatbot_assistant_name": "KrishiAi Assistant",
   "chatbot_ask_about": "Ask about crops, weather, market prices, or farming techniques.",
