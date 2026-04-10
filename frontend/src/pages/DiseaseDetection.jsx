@@ -76,8 +76,8 @@ const DiseaseDetection = () => {
         <div className="bg-[#FEFAE0] min-h-screen pt-24 pb-12 px-4">
             <div className="max-w-5xl mx-auto">
                 <div className="text-center mb-10">
-                    <h1 className="text-4xl font-bold text-white mb-4">
-                        <span className="text-red-500">{t('plant_disease')}</span> {t('detection')}
+                    <h1 className="text-4xl font-bold text-gray-800 mb-4">
+                        <span className="text-red-500">{t('plant_disease')}</span> <span className="text-green-700">{t('detection')}</span>
                     </h1>
                     <p className="text-gray-600 max-w-2xl mx-auto">
                         {t('disease_desc')}
@@ -126,14 +126,19 @@ const DiseaseDetection = () => {
                             disabled={!file || loading}
                             className={`w-full py-4 rounded-lg font-bold text-lg shadow-lg flex items-center justify-center transition-all ${!file
                                     ? 'bg-green-50 text-gray-500 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-green-600 to-green-800 text-white hover:from-green-500 hover:to-green-700'
+                                    : loading
+                                        ? 'bg-green-700 text-white cursor-wait'
+                                        : 'bg-gradient-to-r from-green-600 to-green-800 text-white hover:from-green-500 hover:to-green-700'
                                 }`}
                         >
                             {loading ? (
-                                <svg className="animate-spin h-6 w-6 text-white" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 1 1 16 0A8 8 0 0 1 4 12z"></path>
-                                </svg>
+                                <span className="flex items-center gap-3">
+                                    <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                                    </svg>
+                                    Analyzing your plant...
+                                </span>
                             ) : (
                                 <>
                                     <FaMicroscope className="mr-2" /> {t('analyze_plant')}
@@ -144,11 +149,22 @@ const DiseaseDetection = () => {
 
                     {/* Results Section */}
                     <div className="bg-white border border-green-200 rounded-xl p-6 shadow-xl flex flex-col">
-                        <h2 className="text-xl font-semibold text-white mb-6 border-b border-green-200 pb-2">
+                        <h2 className="text-xl font-semibold text-gray-800 mb-6 border-b border-green-200 pb-2">
                             {t('analysis_report')}
                         </h2>
 
-                        {!result ? (
+                        {loading ? (
+                            <div className="flex-grow flex flex-col items-center justify-center py-8">
+                                <div className="w-16 h-16 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mb-5"></div>
+                                <p className="text-gray-700 font-medium text-lg mb-1">Analyzing Image...</p>
+                                <p className="text-gray-500 text-sm">Detecting disease patterns using AI</p>
+                                <div className="mt-4 flex items-center gap-1.5">
+                                    <span className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                                    <span className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                                    <span className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                                </div>
+                            </div>
+                        ) : !result ? (
                             <div className="flex-grow flex flex-col items-center justify-center text-gray-500 opacity-60">
                                 <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-4">
                                     <FaExclamationTriangle className="text-3xl" />
@@ -160,7 +176,7 @@ const DiseaseDetection = () => {
                                 {/* Disease Name */}
                                 <div className="bg-green-50/30 p-4 rounded-lg border-l-4 border-red-500">
                                     <p className="text-gray-500 text-xs uppercase tracking-wide mb-1">{t('detected_issue')}</p>
-                                    <h3 className="text-2xl font-bold text-white">{result.disease}</h3>
+                                    <h3 className="text-2xl font-bold text-gray-800">{result.disease}</h3>
                                     <div className="flex items-center mt-2">
                                         <div className="flex-1 bg-green-50 h-2 rounded-full overflow-hidden">
                                             <div
@@ -175,19 +191,19 @@ const DiseaseDetection = () => {
                                 {/* Status Badge */}
                                 <div className="flex items-center space-x-2">
                                     {result.disease.toLowerCase().includes('healthy') ? (
-                                        <span className="px-3 py-1 bg-green-900/50 text-green-400 rounded-full text-sm font-medium flex items-center">
+                                        <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium flex items-center">
                                             <FaCheckCircle className="mr-2" /> {t('healthy_plant')}
                                         </span>
                                     ) : (
-                                        <span className="px-3 py-1 bg-red-900/50 text-red-400 rounded-full text-sm font-medium flex items-center">
+                                        <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium flex items-center">
                                             <FaExclamationTriangle className="mr-2" /> {t('disease_detected')}
                                         </span>
                                     )}
                                 </div>
 
                                 {/* Treatment */}
-                                <div className="bg-blue-900/10 border border-blue-800/30 p-5 rounded-lg">
-                                    <h4 className="text-blue-400 font-semibold mb-3 flex items-center">
+                                <div className="bg-blue-50 border border-blue-200 p-5 rounded-lg">
+                                    <h4 className="text-blue-700 font-semibold mb-3 flex items-center">
                                         <span className="text-xl mr-2">💊</span> {t('recommended_treatment')}
                                     </h4>
                                     <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">
