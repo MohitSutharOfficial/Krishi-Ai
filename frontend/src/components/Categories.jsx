@@ -83,11 +83,10 @@ const Categories = ({ onCategoryChange }) => {
           >
             <div className="relative">
               <div
-                className={`w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-300 ${
-                  selectedCategory === category.name
+                className={`w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden shadow-md group-hover:shadow-lg transition-all duration-300 ${selectedCategory === category.name
                     ? 'ring-2 ring-offset-2 ring-green-500 dark:ring-green-400'
                     : 'group-hover:ring-2 group-hover:ring-offset-2 group-hover:ring-green-400/50 dark:group-hover:ring-green-300/50'
-                }`}
+                  }`}
               >
                 <img
                   src={category.image}
@@ -105,11 +104,10 @@ const Categories = ({ onCategoryChange }) => {
               )}
             </div>
 
-            <p className={`text-center mt-2 text-sm font-medium transition-colors duration-300 ${
-              selectedCategory === category.name
+            <p className={`text-center mt-2 text-sm font-medium transition-colors duration-300 ${selectedCategory === category.name
                 ? 'text-green-600 dark:text-green-400'
                 : 'text-gray-700 dark:text-gray-300 group-hover:text-green-600 dark:group-hover:text-green-400'
-            }`}>
+              }`}>
               {t(`cat_${category.name.toLowerCase().replace(/\s+/g, '_')}`, category.name)}
             </p>
           </div>
