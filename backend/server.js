@@ -41,8 +41,18 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 
-// Connect to MongoDB (cached for serverless reuse)
-connectToMongoDb();
+// ── DB connection middleware ──────────────────────────────────────────────────
+// On Vercel each cold-start invocation must await the connection BEFORE any
+// route handler runs.  Warm invocations short-circuit via readyState === 1.
+app.use(async (req, res, next) => {
+    try {
+        await connectToMongoDb();
+        next();
+    } catch (err) {
+        console.error('DB connection failed for request:', req.path);
+        res.status(503).json({ error: 'Database unavailable. Please try again.' });
+    }
+});
 
 app.use('/', homeRoute);
 app.use('/api/auth', authRoutes);
