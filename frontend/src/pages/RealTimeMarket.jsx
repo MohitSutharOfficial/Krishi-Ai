@@ -12,7 +12,8 @@ import { BsArrowUpRight, BsArrowDownRight, BsInfoCircle, BsGraphUp } from 'react
 // Register Chart.js components
 Chart.register(...registerables);
 
-// NOTE: marketData is React state inside the component — do not use a module-level var
+// Mutable reference: replaced by API data when available
+let marketData = staticMarketData;
 
 // Helper function to group data by category
 const groupByCategory = (data) => {
@@ -47,64 +48,51 @@ const getPriceRangeByTicker = (data) => {
   });
 };
 
-// Helper function to generate historical data from real data or simulate trends
-const generateHistoricalData = (ticker, liveData, months = 12) => {
+// Helper function to generate random historical data
+const generateHistoricalData = (ticker, months = 12) => {
   const today = new Date();
-  const chartPoints = [];
+  const data = [];
 
-  // Find the current price for this ticker from real data
-  const tickerData = liveData.filter(item => item.ticker === ticker);
+  // Find the current price for this ticker
+  const tickerData = marketData.filter(item => item.ticker === ticker);
   const currentPrice = tickerData.length > 0
     ? parseFloat(tickerData[0].price)
-    : 5000;
+    : 5000; // Default if not found
 
-  // Simulate a price trend starting from 70% of current price
-  let price = currentPrice * 0.7;
+  // Generate random historical prices with a trend
+  let price = currentPrice * 0.7; // Start at 70% of current price
+
   for (let i = months; i > 0; i--) {
     const date = new Date(today);
     date.setMonth(today.getMonth() - i);
-    const randomFactor = 0.95 + Math.random() * 0.1;
+
+    // Add some randomness but maintain an upward trend
+    const randomFactor = 0.95 + Math.random() * 0.1; // 0.95 to 1.05
     price = price * randomFactor;
-    chartPoints.push({ date: date.toISOString().slice(0, 7), price });
+
+    data.push({
+      date: date.toISOString().slice(0, 7), // YYYY-MM format
+      price: price
+    });
   }
-  chartPoints.push({ date: today.toISOString().slice(0, 7), price: currentPrice });
-  return chartPoints;
+
+  // Ensure the last point is the current price
+  data.push({
+    date: today.toISOString().slice(0, 7),
+    price: currentPrice
+  });
+
+  return data;
 };
 
 // Helper function to categorize commodities
 const categorizeItems = (data) => {
   const categories = {
-    'Grains': [
-      'Wheat', 'Rice', 'Maize', 'Jowar(Sorghum)', 'Paddy(Dhan)(Common)',
-      'Bajra(Pearl Millet)', 'Ragi (Finger Millet)', 'Barley',
-    ],
-    'Pulses': [
-      'Bengal Gram(Gram)(Whole)', 'Black Gram (Urd Beans)(Whole)',
-      'Green Gram (Moong)(Whole)', 'Lentil (Masur)(Whole)',
-      'Pigeon Pea (Arhar/Tur)(Whole)', 'Horse Gram', 'Peas Wet',
-    ],
-    'Oilseeds': [
-      'Groundnut', 'Sesamum(Sesame,Gingelly,Til)', 'Mustard', 'Soyabean',
-      'Sunflower Seed', 'Castor Seed', 'Linseed', 'Safflower',
-    ],
-    'Vegetables': [
-      'Onion', 'Potato', 'Tomato', 'Brinjal', 'Cabbage',
-      'Cauliflower', 'Capsicum', 'Green Chilli', 'Ladies Finger',
-      'Drumstick', 'Bitter Gourd', 'Bottle Gourd', 'Pumpkin',
-      'Radish', 'Carrot', 'Spinach', 'Cucumber', 'Garlic',
-    ],
-    'Fruits': [
-      'Apple', 'Orange', 'Banana', 'Mango', 'Pineapple', 'Grapes',
-      'Papaya', 'Pomegranate', 'Watermelon', 'Guava',
-      'Lemon', 'Coconut', 'Jack Fruit', 'Kinnow',
-    ],
-    'Spices': [
-      'Turmeric', 'Dry Chillies', 'Cumin(Jeera)', 'Coriander (Dhaniya)',
-      'Ginger (Dry)', 'Black Pepper', 'Cardamom', 'Fenugreek Seed (Methi)',
-    ],
-    'Cash Crops': [
-      'Cotton(Lint)', 'Sugarcane', 'Jute', 'Tobacco',
-    ],
+    'Grains': ['Wheat', 'Rice', 'Maize', 'Jowar(Sorghum)', 'Paddy(Dhan)(Common)'],
+    'Pulses': ['Bengal Gram(Gram)(Whole)', 'Black Gram (Urd Beans)(Whole)'],
+    'Oilseeds': ['Groundnut', 'Sesamum(Sesame,Gingelly,Til)', 'Mustard', 'Soyabean'],
+    'Fruits': ['Apple', 'Orange', 'Banana', 'Mango', 'Pineapple', 'Grapes'],
+    'Vegetables': ['Onion', 'Potato', 'Tomato']
   };
 
   // Create a reverse mapping
@@ -125,11 +113,6 @@ const categorizeItems = (data) => {
 const RealTimeMarket = () => {
   const { t } = useTranslation();
   const { BACKEND_URL } = useAuthContext();
-
-  // marketData as React state — ensures all useMemo/renders update reactively
-  const [marketData, setMarketData] = useState(staticMarketData);
-  const [apiStatus, setApiStatus] = useState('loading'); // 'loading' | 'live' | 'static'
-
   const [selectedTicker, setSelectedTicker] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -140,61 +123,48 @@ const RealTimeMarket = () => {
   const [showCategoryFilter, setShowCategoryFilter] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: 'price', direction: 'descending' });
   const [chartSize, setChartSize] = useState('medium');
+  const [dataReady, setDataReady] = useState(true);
   const [marketTrends] = useState({
     weeklyChange: (Math.random() * 10 - 5).toFixed(2),
     monthlyChange: (Math.random() * 15 - 5).toFixed(2),
     yearlyChange: (Math.random() * 25 - 5).toFixed(2)
   });
 
-  // Fetch live market data from data.gov.in API via backend, fall back to static JSON
+  // Fetch live market data from backend scraper, fall back to static JSON
   useEffect(() => {
     const fetchLiveMarket = async () => {
       try {
-        setApiStatus('loading');
         const response = await fetch(`${BACKEND_URL}/api/marketdata`, { method: 'POST' });
-        if (!response.ok) throw new Error(`Market API failed: ${response.status}`);
+        if (!response.ok) throw new Error('Market API failed');
         const json = await response.json();
         const scraped = json.marketData || [];
         if (scraped.length > 0) {
           const today = new Date().toISOString().slice(0, 10);
-          const normalized = scraped.map(item => ({
+          marketData = scraped.map(item => ({
             ...item,
             date: item.date || today,
             price: item.price || String(((parseFloat(item.maxPrice) + parseFloat(item.minPrice)) / 2).toFixed(2))
           }));
-          // Merge: live data takes priority; static fills gaps for unlisted commodities
-          const liveTickerSet = new Set(normalized.map(r => r.ticker));
-          const staticFallback = staticMarketData.filter(r => !liveTickerSet.has(r.ticker));
-          setMarketData([...normalized, ...staticFallback]);
-          setApiStatus('live');
-        } else {
-          setApiStatus('static');
+          setDataReady(false);
+          setTimeout(() => setDataReady(true), 0);
         }
       } catch (err) {
         console.warn('Market API unavailable, using static data:', err.message);
-        setApiStatus('static');
       }
     };
     fetchLiveMarket();
   }, [BACKEND_URL]);
 
-  // Get unique tickers and categories — all depend on marketData state
-  const { categories, itemToCategory } = useMemo(() => categorizeItems(marketData), [marketData]);
-
-  // All commodity names across all defined categories (always complete list)
-  const ALL_DEFINED_TICKERS = useMemo(() =>
-    Object.values(categories).flat().sort(),
-    [categories]);
+  // Get unique tickers and categories
+  const { categories, itemToCategory } = useMemo(() => categorizeItems(marketData), []);
 
   const uniqueTickers = useMemo(() => {
     if (selectedCategory === 'All') {
-      // Always show full defined list, sorted alphabetically
-      return ALL_DEFINED_TICKERS;
+      return [...new Set(marketData.map(item => item.ticker))];
     } else {
-      // Always show the full category list — Submit filters by actual data
-      return (categories[selectedCategory] || []).slice().sort();
+      return categories[selectedCategory] || [];
     }
-  }, [selectedCategory, categories, ALL_DEFINED_TICKERS]);
+  }, [selectedCategory, categories]);
 
   const allCategories = useMemo(() => ['All', ...Object.keys(categories)], [categories]);
 
@@ -210,33 +180,34 @@ const RealTimeMarket = () => {
     setSelectedTicker(event.target.value);
   };
 
-  // Handle form submission — search merged data, then static fallback
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!selectedTicker) return;
     setIsLoading(true);
 
+    // Simulate loading delay
     setTimeout(() => {
-      // Search live+merged data first; fall back to static for missing commodities
-      let result = marketData.filter(item => item.ticker === selectedTicker);
-      if (result.length === 0) {
-        result = staticMarketData.filter(item => item.ticker === selectedTicker);
-      }
+      const result = marketData.filter(item => item.ticker === selectedTicker);
       setFilteredData(result);
 
-      const dataSource = result.length > 0 ? result : marketData;
-      const history = generateHistoricalData(selectedTicker, dataSource);
+      // Generate historical data for the selected ticker
+      const history = generateHistoricalData(selectedTicker);
       setHistoricalData(history);
 
-      generateMarketInsights(selectedTicker, result.length > 0 ? result : staticMarketData);
+      // Generate market insights
+      generateMarketInsights(selectedTicker);
       setIsLoading(false);
       setActiveTab('charts');
     }, 800);
   };
 
-  // Generate market insights from the provided data snapshot
-  const generateMarketInsights = (ticker, data) => {
-    const tickerData = data.filter(item => item.ticker === ticker);
+  // Generate market insights
+  const generateMarketInsights = (ticker) => {
+
+    // Calculate market statistics
+
+
+    const tickerData = marketData.filter(item => item.ticker === ticker);
     if (tickerData.length === 0) return;
 
     // Calculate average prices
@@ -294,119 +265,139 @@ const RealTimeMarket = () => {
     }));
   }, [filteredData]);
 
-  // Premium curated color palette
-  const PALETTE = [
-    { bg: 'rgba(99, 102, 241, 0.75)', border: 'rgba(99, 102, 241, 1)' }, // indigo
-    { bg: 'rgba(16, 185, 129, 0.75)', border: 'rgba(16, 185, 129, 1)' }, // emerald
-    { bg: 'rgba(245, 158, 11, 0.75)', border: 'rgba(245, 158, 11, 1)' }, // amber
-    { bg: 'rgba(239, 68, 68, 0.75)', border: 'rgba(239, 68, 68, 1)' }, // red
-    { bg: 'rgba(14, 165, 233, 0.75)', border: 'rgba(14, 165, 233, 1)' }, // sky
-    { bg: 'rgba(168, 85, 247, 0.75)', border: 'rgba(168, 85, 247, 1)' }, // violet
-    { bg: 'rgba(236, 72, 153, 0.75)', border: 'rgba(236, 72, 153, 1)' }, // pink
-    { bg: 'rgba(251, 146, 60, 0.75)', border: 'rgba(251, 146, 60, 1)' }, // orange
-  ];
-
-  // Grouped bar chart: Min / Modal / Max per market
+  // Bar Chart Data
   const barChartData = {
     labels: pricesData.map(item => item.market),
     datasets: [
       {
-        label: t('minPrice'),
-        data: pricesData.map(item => item.minPrice),
-        backgroundColor: 'rgba(16, 185, 129, 0.75)',
-        borderColor: 'rgba(16, 185, 129, 1)',
-        borderWidth: 2,
-        borderRadius: 6,
-        borderSkipped: false,
-        barPercentage: 0.6,
-      },
-      {
         label: t('currentPrice'),
         data: pricesData.map(item => item.price),
-        backgroundColor: 'rgba(99, 102, 241, 0.75)',
-        borderColor: 'rgba(99, 102, 241, 1)',
-        borderWidth: 2,
-        borderRadius: 6,
-        borderSkipped: false,
-        barPercentage: 0.6,
+        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+        borderColor: 'rgba(59, 130, 246, 1)',
+        borderWidth: 1,
+        borderRadius: 4,
+        barThickness: 16,
+        order: 1
       },
       {
         label: t('maxPrice'),
         data: pricesData.map(item => item.maxPrice),
-        backgroundColor: 'rgba(239, 68, 68, 0.75)',
-        borderColor: 'rgba(239, 68, 68, 1)',
-        borderWidth: 2,
-        borderRadius: 6,
-        borderSkipped: false,
-        barPercentage: 0.6,
-      },
-    ],
-  };
-
-  // Floating bar chart — price band (Min→Max) per market
-  const priceBandData = {
-    labels: pricesData.map(item => item.market),
-    datasets: [
-      {
-        label: 'Price Band (Min → Max)',
-        data: pricesData.map(item => [item.minPrice, item.maxPrice]),
-        backgroundColor: pricesData.map((_, i) => PALETTE[i % PALETTE.length].bg),
-        borderColor: pricesData.map((_, i) => PALETTE[i % PALETTE.length].border),
-        borderWidth: 2,
+        backgroundColor: 'rgba(34, 197, 94, 0.7)',
+        borderColor: 'rgba(34, 197, 94, 1)',
+        borderWidth: 1,
         borderRadius: 4,
-        borderSkipped: false,
-        barPercentage: 0.5,
+        barThickness: 16,
+        order: 2
       },
       {
-        label: 'Modal Price',
-        data: pricesData.map(item => item.price),
-        type: 'line',
-        borderColor: 'rgba(245, 158, 11, 1)',
-        backgroundColor: 'rgba(245, 158, 11, 0.15)',
-        borderWidth: 2,
-        pointRadius: 5,
-        pointBackgroundColor: 'rgba(245, 158, 11, 1)',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 2,
-        tension: 0.3,
-        fill: false,
+        label: t('minPrice'),
+        data: pricesData.map(item => item.minPrice),
+        backgroundColor: 'rgba(239, 68, 68, 0.7)',
+        borderColor: 'rgba(239, 68, 68, 1)',
+        borderWidth: 1,
+        borderRadius: 4,
+        barThickness: 16,
+        order: 3
       }
     ],
   };
 
-  // Doughnut — price distribution across markets
-  const doughnutChartData = {
+  // Pie Chart Data for market distribution
+  const pieChartData = {
     labels: pricesData.map(item => item.market),
-    datasets: [{
-      label: 'Modal Price Share',
-      data: pricesData.map(item => item.price),
-      backgroundColor: pricesData.map((_, i) => PALETTE[i % PALETTE.length].bg),
-      borderColor: pricesData.map((_, i) => PALETTE[i % PALETTE.length].border),
-      borderWidth: 2,
-      hoverOffset: 18,
-      cutout: '65%',
-    }],
+    datasets: [
+      {
+        label: t('marketShare'),
+        data: pricesData.map(item => item.price),
+        backgroundColor: [
+          'rgba(59, 130, 246, 0.7)',
+          'rgba(34, 197, 94, 0.7)',
+          'rgba(239, 68, 68, 0.7)',
+          'rgba(250, 204, 21, 0.7)',
+          'rgba(168, 85, 247, 0.7)',
+          'rgba(236, 72, 153, 0.7)',
+          'rgba(14, 165, 233, 0.7)',
+          'rgba(249, 115, 22, 0.7)',
+          'rgba(16, 185, 129, 0.7)',
+          'rgba(99, 102, 241, 0.7)',
+        ],
+        borderColor: [
+          'rgba(59, 130, 246, 1)',
+          'rgba(34, 197, 94, 1)',
+          'rgba(239, 68, 68, 1)',
+          'rgba(250, 204, 21, 1)',
+          'rgba(168, 85, 247, 1)',
+          'rgba(236, 72, 153, 1)',
+          'rgba(14, 165, 233, 1)',
+          'rgba(249, 115, 22, 1)',
+          'rgba(16, 185, 129, 1)',
+          'rgba(99, 102, 241, 1)',
+        ],
+        borderWidth: 1,
+        hoverOffset: 15,
+      },
+    ],
   };
 
-  // Area line chart — historical trend
+  // Doughnut Chart Data for price range
+  const doughnutChartData = {
+    labels: pricesData.map(item => item.market),
+    datasets: [
+      {
+        label: t('priceRange'),
+        data: pricesData.map(item => item.maxPrice - item.minPrice),
+        backgroundColor: [
+          'rgba(59, 130, 246, 0.7)',
+          'rgba(34, 197, 94, 0.7)',
+          'rgba(239, 68, 68, 0.7)',
+          'rgba(250, 204, 21, 0.7)',
+          'rgba(168, 85, 247, 0.7)',
+          'rgba(236, 72, 153, 0.7)',
+          'rgba(14, 165, 233, 0.7)',
+          'rgba(249, 115, 22, 0.7)',
+          'rgba(16, 185, 129, 0.7)',
+          'rgba(99, 102, 241, 0.7)',
+        ],
+        borderColor: [
+          'rgba(59, 130, 246, 1)',
+          'rgba(34, 197, 94, 1)',
+          'rgba(239, 68, 68, 1)',
+          'rgba(250, 204, 21, 1)',
+          'rgba(168, 85, 247, 1)',
+          'rgba(236, 72, 153, 1)',
+          'rgba(14, 165, 233, 1)',
+          'rgba(249, 115, 22, 1)',
+          'rgba(16, 185, 129, 1)',
+          'rgba(99, 102, 241, 1)',
+        ],
+        borderWidth: 1,
+        hoverOffset: 15,
+        cutout: '70%'
+      },
+    ],
+  };
+
+  // Historical Price Trends Data
   const lineChartData = {
     labels: historicalData.map(item => item.date),
-    datasets: [{
-      label: t('historicalPriceTrends'),
-      data: historicalData.map(item => item.price),
-      borderColor: 'rgba(99, 102, 241, 1)',
-      backgroundColor: 'rgba(99, 102, 241, 0.12)',
-      fill: true,
-      tension: 0.45,
-      pointRadius: 4,
-      pointBackgroundColor: 'rgba(99, 102, 241, 1)',
-      pointBorderColor: '#fff',
-      pointBorderWidth: 2,
-      pointHoverRadius: 7,
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(99, 102, 241, 1)',
-      pointHoverBorderWidth: 2,
-    }],
+    datasets: [
+      {
+        label: t('historicalPriceTrends'),
+        data: historicalData.map(item => item.price),
+        borderColor: 'rgba(59, 130, 246, 1)',
+        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+        fill: true,
+        tension: 0.4,
+        pointRadius: 4,
+        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointHoverRadius: 6,
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(59, 130, 246, 1)',
+        pointHoverBorderWidth: 2,
+      },
+    ],
   };
 
   // Calculate market statistics
@@ -468,7 +459,7 @@ const RealTimeMarket = () => {
       highestPricedCommodity,
       lowestPricedCommodity
     };
-  }, [itemToCategory, marketData]);
+  }, [itemToCategory]);
 
   // Category Comparison Chart Data
   const categoryComparisonData = useMemo(() => {
@@ -568,8 +559,6 @@ const RealTimeMarket = () => {
   // Data Table Columns
   const columns = [
     { header: t('market'), accessor: 'market' },
-    { header: 'State', accessor: 'state' },
-    { header: 'District', accessor: 'district' },
     { header: t('date'), accessor: 'date' },
     { header: t('maxPrice'), accessor: 'maxPrice' },
     { header: t('minPrice'), accessor: 'minPrice' },
@@ -580,22 +569,15 @@ const RealTimeMarket = () => {
   // Function to format data values
   const formatValue = (value, accessor) => {
     if (accessor === 'date') {
-      if (!value || value === 'N/A') return 'N/A';
-      if (value instanceof Date) return value.toLocaleDateString('en-IN');
-      // YYYY-MM-DD string from data.gov.in API
-      const d = new Date(value);
-      return isNaN(d) ? value : d.toLocaleDateString('en-IN');
+      return value instanceof Date ? value.toLocaleDateString() : 'N/A';
     }
     if (accessor === 'priceRange') {
-      const item = filteredData.find(i => i.market === value);
+      const item = filteredData.find(i => i.market === value.market);
       if (!item) return 'N/A';
       const range = parseFloat(item.maxPrice) - parseFloat(item.minPrice);
       return `₹${range.toFixed(2)}`;
     }
-    if (accessor === 'state' || accessor === 'district') {
-      return value || '—';
-    }
-    return typeof value === 'number' ? `₹${value.toFixed(2)}` : (value || 'N/A');
+    return typeof value === 'number' ? `₹${value.toFixed(2)}` : value;
   };
 
   // Create a component for stat cards
@@ -635,72 +617,35 @@ const RealTimeMarket = () => {
       <div className="flex-grow p-4 md:p-8 mt-16">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between w-full mb-6">
-            <div className="flex items-center gap-3 mb-4 md:mb-0 flex-wrap">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
-                {t('realTimeMarket')}
-              </h1>
-              {apiStatus === 'loading' && (
-                <span className="animate-pulse text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 font-medium border border-yellow-300">⏳ Loading live data…</span>
-              )}
-              {apiStatus === 'live' && (
-                <span className="text-xs px-2 py-1 rounded-full bg-green-100 text-green-700 font-medium border border-green-300">🟢 Source — data.gov.in</span>
-              )}
-              {apiStatus === 'static' && (
-                <span className="text-xs px-2 py-1 rounded-full bg-orange-100 text-orange-700 font-medium border border-orange-300">📦 Static fallback data</span>
-              )}
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 md:mb-0">
+              {t('realTimeMarket')}
+            </h1>
 
             <div className="flex flex-col sm:flex-row gap-2">
               <div className="relative">
                 <button
                   onClick={() => setShowCategoryFilter(!showCategoryFilter)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md border transition-colors
-                    ${selectedCategory !== 'All'
-                      ? 'bg-green-600 text-white border-green-600 hover:bg-green-700'
-                      : 'bg-white text-gray-700 border-green-200 hover:bg-green-50'
-                    }`}
+                  className="flex items-center px-4 py-2 bg-white rounded-md border border-green-200 hover:bg-green-50"
                 >
-                  <FiFilter className="shrink-0" />
-                  <span className="font-medium">
-                    {selectedCategory === 'All' ? t('categories') : selectedCategory}
-                  </span>
-                  <svg
-                    className={`w-4 h-4 shrink-0 transition-transform ${showCategoryFilter ? 'rotate-180' : ''}`}
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <FiFilter className="mr-2" />
+                  {t('categories')}
                 </button>
 
                 {showCategoryFilter && (
-                  <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl z-10 border border-green-100 py-1 overflow-hidden">
-                    {allCategories.map((category, index) => {
-                      const emoji = {
-                        'All': '🌾', 'Grains': '🌽', 'Pulses': '🫘',
-                        'Oilseeds': '🌻', 'Vegetables': '🥦', 'Fruits': '🍎',
-                        'Spices': '🌶️', 'Cash Crops': '🌿',
-                      }[category] || '📦';
-                      const isActive = selectedCategory === category;
-                      return (
-                        <button
-                          key={index}
-                          onClick={() => { handleCategorySelect(category); setShowCategoryFilter(false); }}
-                          className={`flex items-center w-full text-left px-4 py-2.5 gap-2 text-sm transition-colors
-                            ${isActive
-                              ? 'bg-green-600 text-white font-semibold'
-                              : 'text-gray-700 hover:bg-green-50'
-                            }`}
-                        >
-                          <span>{emoji}</span>
-                          <span className="flex-1">{category}</span>
-                          {isActive && (
-                            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                            </svg>
-                          )}
-                        </button>
-                      );
-                    })}
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-green-200">
+                    {allCategories.map((category, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          handleCategorySelect(category);
+                          setShowCategoryFilter(false);
+                        }}
+                        className={`block w-full text-left px-4 py-2 hover:bg-green-50 ${selectedCategory === category ? 'bg-green-50' : ''
+                          }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
@@ -763,8 +708,8 @@ const RealTimeMarket = () => {
             <button
               onClick={() => setActiveTab('overview')}
               className={`px-4 py-2 font-medium ${activeTab === 'overview'
-                ? 'text-green-500 border-b-2 border-green-500'
-                : 'text-gray-500 hover:text-green-700'
+                  ? 'text-green-500 border-b-2 border-green-500'
+                  : 'text-gray-500 hover:text-green-700'
                 }`}
             >
               {t('overview')}
@@ -772,8 +717,8 @@ const RealTimeMarket = () => {
             <button
               onClick={() => setActiveTab('charts')}
               className={`px-4 py-2 font-medium ${activeTab === 'charts'
-                ? 'text-green-500 border-b-2 border-green-500'
-                : 'text-gray-500 hover:text-green-700'
+                  ? 'text-green-500 border-b-2 border-green-500'
+                  : 'text-gray-500 hover:text-green-700'
                 }`}
             >
               {t('charts')}
@@ -781,8 +726,8 @@ const RealTimeMarket = () => {
             <button
               onClick={() => setActiveTab('data')}
               className={`px-4 py-2 font-medium ${activeTab === 'data'
-                ? 'text-green-500 border-b-2 border-green-500'
-                : 'text-gray-500 hover:text-green-700'
+                  ? 'text-green-500 border-b-2 border-green-500'
+                  : 'text-gray-500 hover:text-green-700'
                 }`}
             >
               {t('dataTable')}
@@ -790,8 +735,8 @@ const RealTimeMarket = () => {
             <button
               onClick={() => setActiveTab('insights')}
               className={`px-4 py-2 font-medium ${activeTab === 'insights'
-                ? 'text-green-500 border-b-2 border-green-500'
-                : 'text-gray-500 hover:text-green-700'
+                  ? 'text-green-500 border-b-2 border-green-500'
+                  : 'text-gray-500 hover:text-green-700'
                 }`}
             >
               {t('marketInsights')}
@@ -974,148 +919,187 @@ const RealTimeMarket = () => {
               </div>
             )}
 
-            {/* Charts Tab — premium redesign */}
-            {activeTab === 'charts' && filteredData.length > 0 && (() => {
-              const chartH = chartSize === 'small' ? '280px' : chartSize === 'medium' ? '360px' : '460px';
-              const cardBase = 'bg-white rounded-2xl shadow-md border border-gray-100 p-5 flex flex-col gap-3';
-              const chartTitle = 'text-base font-semibold text-gray-700 text-center tracking-wide uppercase';
-              const commonOpts = {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: { duration: 700, easing: 'easeInOutQuart' },
-                plugins: {
-                  legend: {
-                    position: 'top',
-                    labels: { font: { size: 12, family: 'Inter, sans-serif' }, padding: 16, usePointStyle: true },
-                  },
-                  tooltip: {
-                    backgroundColor: 'rgba(17,24,39,0.92)',
-                    titleFont: { size: 13, weight: 'bold' },
-                    bodyFont: { size: 12 },
-                    padding: 12,
-                    cornerRadius: 8,
-                    callbacks: { label: ctx => ` ₹${Number(ctx.raw).toLocaleString('en-IN', { maximumFractionDigits: 2 })}` },
-                  },
-                },
-              };
-              const axisStyle = {
-                ticks: { color: '#9ca3af', font: { size: 11 } },
-                grid: { color: 'rgba(0,0,0,0.05)' },
-              };
-              return (
-                <div className="space-y-6">
-                  {/* Row 1: Grouped Bar + Price Band */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div className={cardBase}>
-                      <p className={chartTitle}>📊 {t('priceComparison')}</p>
-                      <div style={{ height: chartH }}>
-                        <Bar data={barChartData} options={{
-                          ...commonOpts,
-                          plugins: {
-                            ...commonOpts.plugins,
-                            tooltip: {
-                              ...commonOpts.plugins.tooltip,
-                              callbacks: { label: ctx => ` ${ctx.dataset.label}: ₹${Number(ctx.raw).toLocaleString('en-IN', { maximumFractionDigits: 0 })}` },
-                            },
+            {/* Charts Tab */}
+            {activeTab === 'charts' && filteredData.length > 0 && (
+              <div className="space-y-8">
+                {/* Price Comparison Bar Chart */}
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
+                    {t('priceComparison')}
+                  </h2>
+                  <Bar
+                    data={barChartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'top',
+                        },
+                        tooltip: {
+                          callbacks: {
+                            label: (context) => `${context.dataset.label}: ₹${context.raw.toFixed(2)}`,
                           },
-                          scales: {
-                            x: { ...axisStyle, ticks: { ...axisStyle.ticks, maxRotation: 40 } },
-                            y: {
-                              ...axisStyle, beginAtZero: false,
-                              title: { display: true, text: 'Price (₹ / Quintal)', color: '#6b7280', font: { size: 11 } },
-                              ticks: { ...axisStyle.ticks, callback: v => `₹${(v / 1000).toFixed(1)}k` },
-                            },
+                        },
+                      },
+                      scales: {
+                        x: {
+                          ticks: {
+                            color: '#6b7280',
+                            maxRotation: 45,
+                            minRotation: 0,
+                            font: { size: 11 },
                           },
-                        }} />
-                      </div>
-                    </div>
-
-                    <div className={cardBase}>
-                      <p className={chartTitle}>📈 Price Band (Min → Max)</p>
-                      <div style={{ height: chartH }}>
-                        <Bar data={priceBandData} options={{
-                          ...commonOpts,
-                          plugins: {
-                            ...commonOpts.plugins,
-                            tooltip: {
-                              ...commonOpts.plugins.tooltip,
-                              callbacks: {
-                                label: ctx => {
-                                  if (Array.isArray(ctx.raw)) return ` Range: ₹${ctx.raw[0].toLocaleString('en-IN')} – ₹${ctx.raw[1].toLocaleString('en-IN')}`;
-                                  return ` Modal: ₹${Number(ctx.raw).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
-                                },
-                              },
-                            },
+                        },
+                        y: {
+                          beginAtZero: true,
+                          title: {
+                            display: true,
+                            text: t('price'),
+                            color: '#374151',
                           },
-                          scales: {
-                            x: { ...axisStyle, ticks: { ...axisStyle.ticks, maxRotation: 40 } },
-                            y: {
-                              ...axisStyle, beginAtZero: false,
-                              title: { display: true, text: 'Price (₹ / Quintal)', color: '#6b7280', font: { size: 11 } },
-                              ticks: { ...axisStyle.ticks, callback: v => `₹${(v / 1000).toFixed(1)}k` },
-                            },
-                          },
-                        }} />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Row 2: Historical Trend + Doughnut */}
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className={`${cardBase} lg:col-span-2`}>
-                      <p className={chartTitle}>📉 {t('historicalPriceTrends')}</p>
-                      <div style={{ height: chartH }}>
-                        <Line data={lineChartData} options={{
-                          ...commonOpts,
-                          plugins: {
-                            ...commonOpts.plugins,
-                            tooltip: {
-                              ...commonOpts.plugins.tooltip,
-                              callbacks: { label: ctx => ` ₹${Number(ctx.raw).toLocaleString('en-IN', { maximumFractionDigits: 0 })}` },
-                            },
-                          },
-                          scales: {
-                            x: {
-                              ...axisStyle, type: 'category',
-                              title: { display: true, text: 'Month', color: '#6b7280', font: { size: 11 } },
-                              ticks: { ...axisStyle.ticks, maxTicksLimit: 7 },
-                            },
-                            y: {
-                              ...axisStyle, beginAtZero: false,
-                              title: { display: true, text: 'Price (₹)', color: '#6b7280', font: { size: 11 } },
-                              ticks: { ...axisStyle.ticks, callback: v => `₹${(v / 1000).toFixed(1)}k` },
-                            },
-                          },
-                        }} />
-                      </div>
-                    </div>
-
-                    <div className={cardBase}>
-                      <p className={chartTitle}>🏪 Market Distribution</p>
-                      <div style={{ height: chartH }} className="flex items-center justify-center">
-                        <Doughnut data={doughnutChartData} options={{
-                          ...commonOpts,
-                          plugins: {
-                            ...commonOpts.plugins,
-                            legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12, usePointStyle: true } },
-                            tooltip: {
-                              ...commonOpts.plugins.tooltip,
-                              callbacks: {
-                                label: ctx => {
-                                  const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                                  const pct = ((ctx.raw / total) * 100).toFixed(1);
-                                  return ` ₹${Number(ctx.raw).toLocaleString('en-IN', { maximumFractionDigits: 0 })} (${pct}%)`;
-                                },
-                              },
-                            },
-                          },
-                        }} />
-                      </div>
-                    </div>
-                  </div>
+                          ticks: { color: '#6b7280' },
+                        },
+                      },
+                    }}
+                  />
                 </div>
-              );
-            })()}
+
+                {/* Historical Price Trends */}
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
+                    {t('historicalPriceTrends')}
+                  </h2>
+                  <Line
+                    data={lineChartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'top',
+                        },
+                        tooltip: {
+                          callbacks: {
+                            label: (context) => `Price: ₹${context.raw.toFixed(2)}`,
+                          },
+                        },
+                      },
+                      scales: {
+                        x: {
+                          type: 'category',
+                          title: {
+                            display: true,
+                            text: t('date'),
+                            color: '#374151',
+                          },
+                          ticks: { color: '#6b7280' },
+                        },
+                        y: {
+                          beginAtZero: true,
+                          title: {
+                            display: true,
+                            text: t('price'),
+                            color: '#374151',
+                          },
+                          ticks: { color: '#6b7280' },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                {/* Market Share Pie Chart */}
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
+                    {t('marketShare')}
+                  </h2>
+                  <Pie
+                    data={pieChartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'right',
+                        },
+                        tooltip: {
+                          callbacks: {
+                            label: (context) => `${context.label}: ₹${context.raw.toFixed(2)}`,
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                {/* Market Comparison Radar Chart */}
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
+                    {t('marketComparison')}
+                  </h2>
+                  <Radar
+                    data={radarChartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'top',
+                        },
+                        tooltip: {
+                          callbacks: {
+                            label: (context) => `${context.dataset.label}: ${context.raw.toFixed(2)}`,
+                          },
+                        },
+                      },
+                      scales: {
+                        r: {
+                          angleLines: {
+                            color: 'rgba(0, 0, 0, 0.15)',
+                          },
+                          grid: {
+                            color: 'rgba(0, 0, 0, 0.1)',
+                          },
+                          pointLabels: {
+                            color: '#374151',
+                            font: { size: 12 },
+                          },
+                          ticks: {
+                            color: '#6b7280',
+                            backdropColor: 'rgba(255, 255, 255, 0.75)',
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                {/* Price Range Doughnut Chart */}
+                <div style={{ height: chartSize === 'small' ? '16rem' : chartSize === 'medium' ? '24rem' : '32rem' }}>
+                  <h2 className="text-2xl font-semibold text-green-600 mb-4 text-center">
+                    {t('priceRange')}
+                  </h2>
+                  <Doughnut
+                    data={doughnutChartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'right',
+                        },
+                        tooltip: {
+                          callbacks: {
+                            label: (context) => `${context.label}: ₹${context.raw.toFixed(2)}`,
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+            )}
 
             {/* Data Table Tab */}
             {activeTab === 'data' && filteredData.length > 0 && (
@@ -1178,11 +1162,9 @@ const RealTimeMarket = () => {
                             {columns.map((col, colIndex) => (
                               <td
                                 key={colIndex}
-                                className="border border-green-200 p-3 text-sm"
+                                className="border border-green-200 p-3"
                               >
-                                {col.accessor === 'priceRange'
-                                  ? formatValue(item.market, col.accessor)
-                                  : formatValue(item[col.accessor], col.accessor)}
+                                {item[col.accessor]}
                               </td>
                             ))}
                           </tr>
