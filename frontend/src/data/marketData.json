@@ -1,450 +1,106 @@
 [
-    {
-      "ticker": "Wheat",
-      "market": "147 Average", 
-      "maxPrice": "2550",
-      "minPrice": "2350",
-      "date": "2024-01-10",
-      "price": "2450"
-    },
-    {
-      "ticker": "Wheat",
-      "market": "Dara",
-      "maxPrice": "2460",
-      "minPrice": "2380",
-      "date": "2024-01-10",
-      "price": "2420"
-    },
-    {
-      "ticker": "Wheat", 
-      "market": "Lok-1",
-      "maxPrice": "2800",
-      "minPrice": "2750",
-      "date": "2024-01-10",
-      "price": "2775"
-    },
-    {
-      "ticker": "Wheat",
-      "market": "Lokwan Gujrat",
-      "maxPrice": "2715",
-      "minPrice": "2305",
-      "date": "2024-01-10",
-      "price": "2510"
-    },
-    {
-      "ticker": "Wheat",
-      "market": "Sonalika",
-      "maxPrice": "3000",
-      "minPrice": "2400",
-      "date": "2024-01-10",
-      "price": "2700"
-    },
-    {
-      "ticker": "Paddy(Dhan)(Common)",
-      "market": "ADT 37",
-      "maxPrice": "2252",
-      "minPrice": "1933",
-      "date": "2024-01-10",
-      "price": "2093"
-    },
-    {
-      "ticker": "Paddy(Dhan)(Common)",
-      "market": "1001",
-      "maxPrice": "2183",
-      "minPrice": "2100",
-      "date": "2024-01-10",
-      "price": "2142"
-    },
-    {
-      "ticker": "Paddy(Dhan)(Common)",
-      "market": "MTU-1010",
-      "maxPrice": "2203",
-      "minPrice": "2203",
-      "date": "2024-01-10",
-      "price": "2203"
-    },
-    {
-      "ticker": "Paddy(Dhan)(Common)",
-      "market": "Swarna Masuri (New)",
-      "maxPrice": "2250",
-      "minPrice": "2150",
-      "date": "2024-01-10",
-      "price": "2200"
-    },
-    {
-      "ticker": "Paddy(Dhan)(Common)",
-      "market": "Common",
-      "maxPrice": "2223",
-      "minPrice": "2183",
-      "date": "2024-01-10",
-      "price": "2203"
-    },
-    {
-      "ticker": "Rice",
-      "market": "Fine",
-      "maxPrice": "4600",
-      "minPrice": "4450",
-      "date": "2024-01-10",
-      "price": "4525"
-    },
-    {
-      "ticker": "Rice",
-      "market": "Common",
-      "maxPrice": "3700",
-      "minPrice": "3350",
-      "date": "2024-01-10",
-      "price": "3525"
-    },
-    {
-      "ticker": "Maize",
-      "market": "Deshi Red",
-      "maxPrice": "4000",
-      "minPrice": "1600",
-      "date": "2024-01-10",
-      "price": "2800"
-    },
-    {
-      "ticker": "Maize",
-      "market": "Yellow",
-      "maxPrice": "2230",
-      "minPrice": "2210",
-      "date": "2024-01-10",
-      "price": "2220"
-    },
-    {
-      "ticker": "Jowar(Sorghum)",
-      "market": "Jowar (Yellow)",
-      "maxPrice": "2850",
-      "minPrice": "2500",
-      "date": "2024-01-10",
-      "price": "2675"
-    },
-    {
-      "ticker": "Bengal Gram(Gram)(Whole)",
-      "market": "Average (Whole)",
-      "maxPrice": "8800",
-      "minPrice": "6400",
-      "date": "2024-01-10",
-      "price": "7600"
-    },
-    {
-      "ticker": "Bengal Gram(Gram)(Whole)",
-      "market": "Desi (F.A.Q. Split)",
-      "maxPrice": "7000",
-      "minPrice": "6900",
-      "date": "2024-01-10",
-      "price": "6950"
-    },
-    {
-      "ticker": "Black Gram (Urd Beans)(Whole)",
-      "market": "Black Gram (Whole)",
-      "maxPrice": "13200",
-      "minPrice": "12000",
-      "date": "2024-01-10",
-      "price": "12600"
-    },
-    {
-      "ticker": "Groundnut",
-      "market": "Big (With Shell)",
-      "maxPrice": "8000",
-      "minPrice": "3300",
-      "date": "2024-01-10",
-      "price": "5650"
-    },
-    {
-      "ticker": "Groundnut",
-      "market": "Balli/Habbu",
-      "maxPrice": "5600",
-      "minPrice": "5500",
-      "date": "2024-01-10",
-      "price": "5550"
-    },
-    {
-      "ticker": "Groundnut",
-      "market": "G20",
-      "maxPrice": "6650",
-      "minPrice": "6625",
-      "date": "2024-01-10",
-      "price": "6638"
-    },
-    {
-      "ticker": "Sesamum(Sesame,Gingelly,Til)",
-      "market": "White",
-      "maxPrice": "11750",
-      "minPrice": "11500",
-      "date": "2024-01-10",
-      "price": "11625"
-    },
-    {
-      "ticker": "Mustard",
-      "market": "Mustard",
-      "maxPrice": "5800",
-      "minPrice": "5450",
-      "date": "2024-01-10",
-      "price": "5625"
-    },
-    {
-      "ticker": "Soyabean",
-      "market": "Yellow",
-      "maxPrice": "4015",
-      "minPrice": "3430",
-      "date": "2024-01-10",
-      "price": "3723"
-    },
-    {
-      "ticker": "Apple",
-      "market": "American",
-      "maxPrice": "24000",
-      "minPrice": "7000",
-      "date": "2024-01-10",
-      "price": "15500"
-    },
-    {
-      "ticker": "Apple",
-      "market": "Delicious",
-      "maxPrice": "2500",
-      "minPrice": "2400",
-      "date": "2024-01-10",
-      "price": "2450"
-    },
-    {
-      "ticker": "Apple",
-      "market": "Kasmir/Shimla - II",
-      "maxPrice": "8990",
-      "minPrice": "8900",
-      "date": "2024-01-10",
-      "price": "8945"
-    },
-    {
-      "ticker": "Apple",
-      "market": "Apple",
-      "maxPrice": "18000",
-      "minPrice": "3000",
-      "date": "2024-01-10",
-      "price": "10500"
-    },
-    {
-      "ticker": "Orange",
-      "market": "Darjeeling",
-      "maxPrice": "16000",
-      "minPrice": "6000",
-      "date": "2024-01-10",
-      "price": "11000"
-    },
-    {
-      "ticker": "Banana",
-      "market": "Besrai",
-      "maxPrice": "11000",
-      "minPrice": "1800",
-      "date": "2024-01-10",
-      "price": "6400"
-    },
-    {
-      "ticker": "Banana",
-      "market": "Medium",
-      "maxPrice": "7500",
-      "minPrice": "2100",
-      "date": "2024-01-10",
-      "price": "4800"
-    },
-    {
-      "ticker": "Banana",
-      "market": "Nendra Bale",
-      "maxPrice": "9000",
-      "minPrice": "1000",
-      "date": "2024-01-10",
-      "price": "5000"
-    },
-    {
-      "ticker": "Banana",
-      "market": "Banana - Ripe",
-      "maxPrice": "7200",
-      "minPrice": "1800",
-      "date": "2024-01-10",
-      "price": "4500"
-    },
-    {
-      "ticker": "Banana",
-      "market": "Red Banana",
-      "maxPrice": "9200",
-      "minPrice": "8800",
-      "date": "2024-01-10",
-      "price": "9000"
-    },
-    {
-      "ticker": "Banana",
-      "market": "Rasakathai",
-      "maxPrice": "6200",
-      "minPrice": "5800",
-      "date": "2024-01-10",
-      "price": "6000"
-    },
-    {
-      "ticker": "Banana",
-      "market": "Poovan",
-      "maxPrice": "8600",
-      "minPrice": "5000",
-      "date": "2024-01-10",
-      "price": "6800"
-    },
-    {
-      "ticker": "Banana",
-      "market": "Robusta",
-      "maxPrice": "5500",
-      "minPrice": "3200",
-      "date": "2024-01-10",
-      "price": "4350"
-    },
-    {
-      "ticker": "Banana",
-      "market": "Palayamthodan",
-      "maxPrice": "6000",
-      "minPrice": "1000",
-      "date": "2024-01-10",
-      "price": "3500"
-    },
-    {
-      "ticker": "Mango",
-      "market": "Safeda",
-      "maxPrice": "18000",
-      "minPrice": "4500",
-      "date": "2024-01-10",
-      "price": "11250"
-    },
-    {
-      "ticker": "Mango",
-      "market": "Dusheri",
-      "maxPrice": "5500",
-      "minPrice": "2100",
-      "date": "2024-01-10",
-      "price": "3800"
-    },
-    {
-      "ticker": "Pineapple",
-      "market": "Pine Apple",
-      "maxPrice": "8000",
-      "minPrice": "3000",
-      "date": "2024-01-10",
-      "price": "5500"
-    },
-    {
-      "ticker": "Grapes",
-      "market": "Annabesahai",
-      "maxPrice": "14000",
-      "minPrice": "7000",
-      "date": "2024-01-10",
-      "price": "10500"
-    },
-    {
-      "ticker": "Onion",
-      "market": "Bellary",
-      "maxPrice": "5500",
-      "minPrice": "3000",
-      "date": "2024-01-10",
-      "price": "4250"
-    },
-    {
-      "ticker": "Onion",
-      "market": "Nasik",
-      "maxPrice": "4000",
-      "minPrice": "3200",
-      "date": "2024-01-10",
-      "price": "3600"
-    },
-    {
-      "ticker": "Onion",
-      "market": "Red",
-      "maxPrice": "3500",
-      "minPrice": "1900",
-      "date": "2024-01-10",
-      "price": "2700"
-    },
-    {
-      "ticker": "Onion",
-      "market": "White",
-      "maxPrice": "3600",
-      "minPrice": "3400",
-      "date": "2024-01-10",
-      "price": "3500"
-    },
-    {
-      "ticker": "Onion",
-      "market": "Onion",
-      "maxPrice": "8600",
-      "minPrice": "2800",
-      "date": "2024-01-10",
-      "price": "5700"
-    },
-    {
-      "ticker": "Onion",
-      "market": "Big",
-      "maxPrice": "4700",
-      "minPrice": "3600",
-      "date": "2024-01-10",
-      "price": "4150"
-    },
-    {
-      "ticker": "Onion",
-      "market": "Medium",
-      "maxPrice": "4600",
-      "minPrice": "1000",
-      "date": "2024-01-10",
-      "price": "2800"
-    },
-    {
-      "ticker": "Potato",
-      "market": "(Red Nanital)",
-      "maxPrice": "9000",
-      "minPrice": "3000",
-      "date": "2024-01-10",
-      "price": "6000"
-    },
-    {
-      "ticker": "Potato",
-      "market": "Desi",
-      "maxPrice": "2480",
-      "minPrice": "1500",
-      "date": "2024-01-10",
-      "price": "1990"
-    },
-    {
-      "ticker": "Potato",
-      "market": "Jyoti",
-      "maxPrice": "2800",
-      "minPrice": "2300",
-      "date": "2024-01-10",
-      "price": "2550"
-    },
-    {
-      "ticker": "Potato",
-      "market": "Big",
-      "maxPrice": "2000",
-      "minPrice": "800",
-      "date": "2024-01-10",
-      "price": "1400"
-    },
-    {
-      "ticker": "Tomato",
-      "market": "Desi",
-      "maxPrice": "5000",
-      "minPrice": "2000",
-      "date": "2024-01-10",
-      "price": "3500"
-    },
-    {
-      "ticker": "Tomato",
-      "market": "Hybrid",
-      "maxPrice": "2200",
-      "minPrice": "1000",
-      "date": "2024-01-10",
-      "price": "1600"
-    },
-    {
-      "ticker": "Tomato",
-      "market": "Local",
-      "maxPrice": "2200",
-      "minPrice": "2000",
-      "date": "2024-01-10",
-      "price": "2100"
-    }
-  ]
+  {"ticker":"Wheat","market":"Delhi (Dara)","state":"Delhi","district":"Delhi","maxPrice":"2800","minPrice":"2460","price":"2630","date":"2024-04-14"},
+  {"ticker":"Wheat","market":"Amritsar (Lok-1)","state":"Punjab","district":"Amritsar","maxPrice":"2900","minPrice":"2600","price":"2750","date":"2024-04-14"},
+  {"ticker":"Wheat","market":"Jaipur (Sonalika)","state":"Rajasthan","district":"Jaipur","maxPrice":"2850","minPrice":"2500","price":"2675","date":"2024-04-14"},
+  {"ticker":"Rice","market":"Hyderabad (Sona Masuri)","state":"Telangana","district":"Hyderabad","maxPrice":"4500","minPrice":"3800","price":"4150","date":"2024-04-14"},
+  {"ticker":"Rice","market":"Kolkata (Swarna)","state":"West Bengal","district":"Kolkata","maxPrice":"4200","minPrice":"3600","price":"3900","date":"2024-04-14"},
+  {"ticker":"Rice","market":"Chennai (Ponni)","state":"Tamil Nadu","district":"Chennai","maxPrice":"5200","minPrice":"4500","price":"4850","date":"2024-04-14"},
+  {"ticker":"Maize","market":"Davangere","state":"Karnataka","district":"Davangere","maxPrice":"2400","minPrice":"2000","price":"2200","date":"2024-04-14"},
+  {"ticker":"Maize","market":"Nizamabad","state":"Telangana","district":"Nizamabad","maxPrice":"2350","minPrice":"1980","price":"2165","date":"2024-04-14"},
+  {"ticker":"Jowar(Sorghum)","market":"Solapur","state":"Maharashtra","district":"Solapur","maxPrice":"3800","minPrice":"3000","price":"3400","date":"2024-04-14"},
+  {"ticker":"Jowar(Sorghum)","market":"Gulbarga","state":"Karnataka","district":"Gulbarga","maxPrice":"3600","minPrice":"2900","price":"3250","date":"2024-04-14"},
+  {"ticker":"Paddy(Dhan)(Common)","market":"Cuttack","state":"Odisha","district":"Cuttack","maxPrice":"2252","minPrice":"1933","price":"2093","date":"2024-04-14"},
+  {"ticker":"Paddy(Dhan)(Common)","market":"Nellore","state":"Andhra Pradesh","district":"Nellore","maxPrice":"2300","minPrice":"2000","price":"2150","date":"2024-04-14"},
+  {"ticker":"Bajra(Pearl Millet)","market":"Jaipur","state":"Rajasthan","district":"Jaipur","maxPrice":"2500","minPrice":"2100","price":"2300","date":"2024-04-14"},
+  {"ticker":"Bajra(Pearl Millet)","market":"Bikaner","state":"Rajasthan","district":"Bikaner","maxPrice":"2450","minPrice":"2050","price":"2250","date":"2024-04-14"},
+  {"ticker":"Ragi (Finger Millet)","market":"Bangalore","state":"Karnataka","district":"Bengaluru","maxPrice":"4200","minPrice":"3500","price":"3850","date":"2024-04-14"},
+  {"ticker":"Ragi (Finger Millet)","market":"Tumkur","state":"Karnataka","district":"Tumkur","maxPrice":"4000","minPrice":"3400","price":"3700","date":"2024-04-14"},
+  {"ticker":"Barley","market":"Jaipur","state":"Rajasthan","district":"Jaipur","maxPrice":"2200","minPrice":"1800","price":"2000","date":"2024-04-14"},
+  {"ticker":"Barley","market":"Agra","state":"Uttar Pradesh","district":"Agra","maxPrice":"2100","minPrice":"1750","price":"1925","date":"2024-04-14"},
+
+  {"ticker":"Bengal Gram(Gram)(Whole)","market":"Indore","state":"Madhya Pradesh","district":"Indore","maxPrice":"7200","minPrice":"6500","price":"6850","date":"2024-04-14"},
+  {"ticker":"Bengal Gram(Gram)(Whole)","market":"Akola","state":"Maharashtra","district":"Akola","maxPrice":"7000","minPrice":"6300","price":"6650","date":"2024-04-14"},
+  {"ticker":"Black Gram (Urd Beans)(Whole)","market":"Nagpur","state":"Maharashtra","district":"Nagpur","maxPrice":"12600","minPrice":"11800","price":"12200","date":"2024-04-14"},
+  {"ticker":"Black Gram (Urd Beans)(Whole)","market":"Latur","state":"Maharashtra","district":"Latur","maxPrice":"12800","minPrice":"11500","price":"12150","date":"2024-04-14"},
+  {"ticker":"Green Gram (Moong)(Whole)","market":"Jaipur","state":"Rajasthan","district":"Jaipur","maxPrice":"9500","minPrice":"8500","price":"9000","date":"2024-04-14"},
+  {"ticker":"Green Gram (Moong)(Whole)","market":"Kota","state":"Rajasthan","district":"Kota","maxPrice":"9300","minPrice":"8300","price":"8800","date":"2024-04-14"},
+  {"ticker":"Lentil (Masur)(Whole)","market":"Bhopal","state":"Madhya Pradesh","district":"Bhopal","maxPrice":"7500","minPrice":"6800","price":"7150","date":"2024-04-14"},
+  {"ticker":"Lentil (Masur)(Whole)","market":"Gwalior","state":"Madhya Pradesh","district":"Gwalior","maxPrice":"7300","minPrice":"6600","price":"6950","date":"2024-04-14"},
+  {"ticker":"Pigeon Pea (Arhar/Tur)(Whole)","market":"Mumbai","state":"Maharashtra","district":"Mumbai","maxPrice":"14500","minPrice":"13200","price":"13850","date":"2024-04-14"},
+  {"ticker":"Pigeon Pea (Arhar/Tur)(Whole)","market":"Pune","state":"Maharashtra","district":"Pune","maxPrice":"14200","minPrice":"13000","price":"13600","date":"2024-04-14"},
+  {"ticker":"Horse Gram","market":"Bangalore","state":"Karnataka","district":"Bengaluru","maxPrice":"8500","minPrice":"7200","price":"7850","date":"2024-04-14"},
+  {"ticker":"Peas Wet","market":"Delhi","state":"Delhi","district":"Delhi","maxPrice":"3500","minPrice":"2800","price":"3150","date":"2024-04-14"},
+
+  {"ticker":"Groundnut","market":"Rajkot","state":"Gujarat","district":"Rajkot","maxPrice":"7500","minPrice":"6800","price":"7150","date":"2024-04-14"},
+  {"ticker":"Groundnut","market":"Junagadh","state":"Gujarat","district":"Junagadh","maxPrice":"7300","minPrice":"6600","price":"6950","date":"2024-04-14"},
+  {"ticker":"Sesamum(Sesame,Gingelly,Til)","market":"Indore","state":"Madhya Pradesh","district":"Indore","maxPrice":"19000","minPrice":"17500","price":"18250","date":"2024-04-14"},
+  {"ticker":"Mustard","market":"Alwar","state":"Rajasthan","district":"Alwar","maxPrice":"6200","minPrice":"5500","price":"5850","date":"2024-04-14"},
+  {"ticker":"Mustard","market":"Bharatpur","state":"Rajasthan","district":"Bharatpur","maxPrice":"6000","minPrice":"5350","price":"5675","date":"2024-04-14"},
+  {"ticker":"Soyabean","market":"Indore","state":"Madhya Pradesh","district":"Indore","maxPrice":"5000","minPrice":"4400","price":"4700","date":"2024-04-14"},
+  {"ticker":"Soyabean","market":"Latur","state":"Maharashtra","district":"Latur","maxPrice":"4900","minPrice":"4300","price":"4600","date":"2024-04-14"},
+  {"ticker":"Sunflower Seed","market":"Bijapur","state":"Karnataka","district":"Bijapur","maxPrice":"6500","minPrice":"5800","price":"6150","date":"2024-04-14"},
+  {"ticker":"Castor Seed","market":"Rajkot","state":"Gujarat","district":"Rajkot","maxPrice":"7200","minPrice":"6500","price":"6850","date":"2024-04-14"},
+  {"ticker":"Linseed","market":"Gwalior","state":"Madhya Pradesh","district":"Gwalior","maxPrice":"6800","minPrice":"6000","price":"6400","date":"2024-04-14"},
+  {"ticker":"Safflower","market":"Solapur","state":"Maharashtra","district":"Solapur","maxPrice":"7500","minPrice":"6800","price":"7150","date":"2024-04-14"},
+
+  {"ticker":"Onion","market":"Lasalgaon","state":"Maharashtra","district":"Nashik","maxPrice":"3500","minPrice":"2500","price":"3000","date":"2024-04-14"},
+  {"ticker":"Onion","market":"Pune","state":"Maharashtra","district":"Pune","maxPrice":"3800","minPrice":"2800","price":"3300","date":"2024-04-14"},
+  {"ticker":"Potato","market":"Agra","state":"Uttar Pradesh","district":"Agra","maxPrice":"2500","minPrice":"1800","price":"2150","date":"2024-04-14"},
+  {"ticker":"Potato","market":"Kolkata","state":"West Bengal","district":"Kolkata","maxPrice":"2800","minPrice":"2000","price":"2400","date":"2024-04-14"},
+  {"ticker":"Tomato","market":"Kolar","state":"Karnataka","district":"Kolar","maxPrice":"4200","minPrice":"2800","price":"3500","date":"2024-04-14"},
+  {"ticker":"Tomato","market":"Nasikhabad","state":"Madhya Pradesh","district":"Sagar","maxPrice":"3800","minPrice":"2500","price":"3150","date":"2024-04-14"},
+  {"ticker":"Brinjal","market":"Bengaluru","state":"Karnataka","district":"Bengaluru","maxPrice":"2800","minPrice":"1800","price":"2300","date":"2024-04-14"},
+  {"ticker":"Brinjal","market":"Patna","state":"Bihar","district":"Patna","maxPrice":"2600","minPrice":"1600","price":"2100","date":"2024-04-14"},
+  {"ticker":"Cabbage","market":"Ooty","state":"Tamil Nadu","district":"Nilgiris","maxPrice":"1800","minPrice":"1000","price":"1400","date":"2024-04-14"},
+  {"ticker":"Cauliflower","market":"Bengaluru","state":"Karnataka","district":"Bengaluru","maxPrice":"2500","minPrice":"1500","price":"2000","date":"2024-04-14"},
+  {"ticker":"Capsicum","market":"Shimla","state":"Himachal Pradesh","district":"Shimla","maxPrice":"4500","minPrice":"3200","price":"3850","date":"2024-04-14"},
+  {"ticker":"Green Chilli","market":"Guntur","state":"Andhra Pradesh","district":"Guntur","maxPrice":"8000","minPrice":"5500","price":"6750","date":"2024-04-14"},
+  {"ticker":"Ladies Finger","market":"Bengaluru","state":"Karnataka","district":"Bengaluru","maxPrice":"3500","minPrice":"2200","price":"2850","date":"2024-04-14"},
+  {"ticker":"Drumstick","market":"Salem","state":"Tamil Nadu","district":"Salem","maxPrice":"4000","minPrice":"2800","price":"3400","date":"2024-04-14"},
+  {"ticker":"Bitter Gourd","market":"Coimbatore","state":"Tamil Nadu","district":"Coimbatore","maxPrice":"3200","minPrice":"2000","price":"2600","date":"2024-04-14"},
+  {"ticker":"Bottle Gourd","market":"Delhi","state":"Delhi","district":"Delhi","maxPrice":"2000","minPrice":"1200","price":"1600","date":"2024-04-14"},
+  {"ticker":"Pumpkin","market":"Patna","state":"Bihar","district":"Patna","maxPrice":"1500","minPrice":"900","price":"1200","date":"2024-04-14"},
+  {"ticker":"Radish","market":"Bengaluru","state":"Karnataka","district":"Bengaluru","maxPrice":"1800","minPrice":"1000","price":"1400","date":"2024-04-14"},
+  {"ticker":"Carrot","market":"Ooty","state":"Tamil Nadu","district":"Nilgiris","maxPrice":"3000","minPrice":"2000","price":"2500","date":"2024-04-14"},
+  {"ticker":"Spinach","market":"Delhi","state":"Delhi","district":"Delhi","maxPrice":"2000","minPrice":"1200","price":"1600","date":"2024-04-14"},
+  {"ticker":"Cucumber","market":"Bengaluru","state":"Karnataka","district":"Bengaluru","maxPrice":"2200","minPrice":"1400","price":"1800","date":"2024-04-14"},
+  {"ticker":"Garlic","market":"Indore","state":"Madhya Pradesh","district":"Indore","maxPrice":"25000","minPrice":"18000","price":"21500","date":"2024-04-14"},
+
+  {"ticker":"Apple","market":"Shimla","state":"Himachal Pradesh","district":"Shimla","maxPrice":"8500","minPrice":"6000","price":"7250","date":"2024-04-14"},
+  {"ticker":"Apple","market":"Srinagar (Delicious)","state":"Jammu & Kashmir","district":"Srinagar","maxPrice":"9000","minPrice":"6500","price":"7750","date":"2024-04-14"},
+  {"ticker":"Orange","market":"Nagpur","state":"Maharashtra","district":"Nagpur","maxPrice":"5500","minPrice":"4000","price":"4750","date":"2024-04-14"},
+  {"ticker":"Banana","market":"Kunnukara VFPCK APMC (Nendra Bale)","state":"Kerala","district":"Ernakulam","maxPrice":"4000","minPrice":"3600","price":"3800","date":"2024-04-14"},
+  {"ticker":"Banana","market":"Jalgaon","state":"Maharashtra","district":"Jalgaon","maxPrice":"3500","minPrice":"2800","price":"3150","date":"2024-04-14"},
+  {"ticker":"Mango","market":"Ratnagiri (Alphonso)","state":"Maharashtra","district":"Ratnagiri","maxPrice":"18000","minPrice":"12000","price":"15000","date":"2024-04-14"},
+  {"ticker":"Mango","market":"Krishnagiri","state":"Tamil Nadu","district":"Krishnagiri","maxPrice":"9000","minPrice":"6000","price":"7500","date":"2024-04-14"},
+  {"ticker":"Pineapple","market":"Thrissur","state":"Kerala","district":"Thrissur","maxPrice":"3500","minPrice":"2500","price":"3000","date":"2024-04-14"},
+  {"ticker":"Grapes","market":"Nashik","state":"Maharashtra","district":"Nashik","maxPrice":"5000","minPrice":"3500","price":"4250","date":"2024-04-14"},
+  {"ticker":"Papaya","market":"Coimbatore","state":"Tamil Nadu","district":"Coimbatore","maxPrice":"2500","minPrice":"1500","price":"2000","date":"2024-04-14"},
+  {"ticker":"Pomegranate","market":"Solapur","state":"Maharashtra","district":"Solapur","maxPrice":"12000","minPrice":"8000","price":"10000","date":"2024-04-14"},
+  {"ticker":"Watermelon","market":"Kolhapur","state":"Maharashtra","district":"Kolhapur","maxPrice":"1500","minPrice":"800","price":"1150","date":"2024-04-14"},
+  {"ticker":"Guava","market":"Allahabad","state":"Uttar Pradesh","district":"Prayagraj","maxPrice":"3000","minPrice":"2000","price":"2500","date":"2024-04-14"},
+  {"ticker":"Lemon","market":"Bengaluru","state":"Karnataka","district":"Bengaluru","maxPrice":"6000","minPrice":"4000","price":"5000","date":"2024-04-14"},
+  {"ticker":"Coconut","market":"Coimbatore","state":"Tamil Nadu","district":"Coimbatore","maxPrice":"2500","minPrice":"1800","price":"2150","date":"2024-04-14"},
+  {"ticker":"Jack Fruit","market":"Kozhikode","state":"Kerala","district":"Kozhikode","maxPrice":"2000","minPrice":"1200","price":"1600","date":"2024-04-14"},
+  {"ticker":"Kinnow","market":"Abohar","state":"Punjab","district":"Fazilka","maxPrice":"4200","minPrice":"3000","price":"3600","date":"2024-04-14"},
+
+  {"ticker":"Turmeric","market":"Nizamabad","state":"Telangana","district":"Nizamabad","maxPrice":"15500","minPrice":"13000","price":"14250","date":"2024-04-14"},
+  {"ticker":"Turmeric","market":"Erode","state":"Tamil Nadu","district":"Erode","maxPrice":"16500","minPrice":"14000","price":"15250","date":"2024-04-14"},
+  {"ticker":"Dry Chillies","market":"Guntur","state":"Andhra Pradesh","district":"Guntur","maxPrice":"28000","minPrice":"22000","price":"25000","date":"2024-04-14"},
+  {"ticker":"Dry Chillies","market":"Warangal","state":"Telangana","district":"Warangal","maxPrice":"26000","minPrice":"20500","price":"23250","date":"2024-04-14"},
+  {"ticker":"Cumin(Jeera)","market":"Unjha","state":"Gujarat","district":"Mehsana","maxPrice":"52000","minPrice":"44000","price":"48000","date":"2024-04-14"},
+  {"ticker":"Cumin(Jeera)","market":"Jodhpur","state":"Rajasthan","district":"Jodhpur","maxPrice":"50000","minPrice":"42000","price":"46000","date":"2024-04-14"},
+  {"ticker":"Coriander (Dhaniya)","market":"Kota","state":"Rajasthan","district":"Kota","maxPrice":"9500","minPrice":"8000","price":"8750","date":"2024-04-14"},
+  {"ticker":"Coriander (Dhaniya)","market":"Indore","state":"Madhya Pradesh","district":"Indore","maxPrice":"9000","minPrice":"7800","price":"8400","date":"2024-04-14"},
+  {"ticker":"Ginger (Dry)","market":"Cochin","state":"Kerala","district":"Ernakulam","maxPrice":"20000","minPrice":"16000","price":"18000","date":"2024-04-14"},
+  {"ticker":"Black Pepper","market":"Cochin","state":"Kerala","district":"Ernakulam","maxPrice":"75000","minPrice":"65000","price":"70000","date":"2024-04-14"},
+  {"ticker":"Cardamom","market":"Vandanmedu","state":"Kerala","district":"Idukki","maxPrice":"180000","minPrice":"150000","price":"165000","date":"2024-04-14"},
+  {"ticker":"Fenugreek Seed (Methi)","market":"Unjha","state":"Gujarat","district":"Mehsana","maxPrice":"8000","minPrice":"6500","price":"7250","date":"2024-04-14"},
+
+  {"ticker":"Cotton(Lint)","market":"Rajkot","state":"Gujarat","district":"Rajkot","maxPrice":"7500","minPrice":"6800","price":"7150","date":"2024-04-14"},
+  {"ticker":"Cotton(Lint)","market":"Akola","state":"Maharashtra","district":"Akola","maxPrice":"7800","minPrice":"7000","price":"7400","date":"2024-04-14"},
+  {"ticker":"Sugarcane","market":"Pune","state":"Maharashtra","district":"Pune","maxPrice":"3500","minPrice":"3200","price":"3350","date":"2024-04-14"},
+  {"ticker":"Sugarcane","market":"Lucknow","state":"Uttar Pradesh","district":"Lucknow","maxPrice":"3600","minPrice":"3300","price":"3450","date":"2024-04-14"},
+  {"ticker":"Jute","market":"Kolkata","state":"West Bengal","district":"Kolkata","maxPrice":"6200","minPrice":"5500","price":"5850","date":"2024-04-14"},
+  {"ticker":"Tobacco","market":"Guntur","state":"Andhra Pradesh","district":"Guntur","maxPrice":"18000","minPrice":"14000","price":"16000","date":"2024-04-14"}
+]
