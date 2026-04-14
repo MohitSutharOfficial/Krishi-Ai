@@ -2,17 +2,24 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
-let isConnected = false;
-
 const connectToMongoDb = async () => {
-    if (isConnected) return;
+    // readyState: 0=disconnected, 1=connected, 2=connecting, 3=disconnecting
+    if (mongoose.connection.readyState === 1) {
+        return; // already connected — reuse on warm lambda
+    }
 
     try {
-        const conn = await mongoose.connect(process.env.MONGO_DB_URL);
-        isConnected = true;
-        console.log(`Connected to database`);
+        await mongoose.connect(process.env.MONGO_DB_URL, {
+            serverSelectionTimeoutMS: 10000, // fail fast if Atlas is unreachable
+            socketTimeoutMS: 45000,
+            maxPoolSize: 10,                 // keep pool small for serverless
+            bufferCommands: false,           // ← KEY: don't buffer, throw immediately
+        });
+        console.log('✅ Connected to MongoDB');
     } catch (err) {
-        console.log(`Error connecting to db: ${err}`);
+        console.error(`❌ MongoDB connection error: ${err.message}`);
+        throw err; // re-throw so the API handler returns 500 instead of timing out
     }
-}
-export default connectToMongoDb;
+};
+
+export default connectToMongoDb;

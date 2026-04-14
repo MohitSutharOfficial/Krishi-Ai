@@ -72,38 +72,54 @@ const generateHistoricalData = (ticker, liveData, months = 12) => {
 };
 
 // Helper function to categorize commodities
+// Names match EXACTLY what the data.gov.in API (9ef84268) returns
 const categorizeItems = (data) => {
   const categories = {
     'Grains': [
-      'Wheat', 'Rice', 'Maize', 'Jowar(Sorghum)', 'Paddy(Dhan)(Common)',
-      'Bajra(Pearl Millet)', 'Ragi (Finger Millet)', 'Barley',
+      'Wheat', 'Rice', 'Maize', 'Jowar(Sorghum)', 'Paddy(Common)',
+      'Bajra(Pearl Millet/Cumbu)', 'Ragi(Finger Millet)', 'Barley(Jau)',
+      'Foxtail Millet(Navane)', 'Kodo Millet(Varagu)',
     ],
     'Pulses': [
-      'Bengal Gram(Gram)(Whole)', 'Black Gram (Urd Beans)(Whole)',
-      'Green Gram (Moong)(Whole)', 'Lentil (Masur)(Whole)',
-      'Pigeon Pea (Arhar/Tur)(Whole)', 'Horse Gram', 'Peas Wet',
+      'Bengal Gram(Gram)(Whole)', 'Bengal Gram Dal(Chana Dal)',
+      'Black Gram(Urd Beans)(Whole)', 'Black Gram Dal(Urd Dal)',
+      'Green Gram(Moong)(Whole)', 'Green Gram Dal(Moong Dal)',
+      'Lentil(Masur)(Whole)', 'Arhar(Tur/Red Gram)(Whole)', 'Arhar Dal(Tur Dal)',
+      'Kulthi(Horse Gram)', 'Peas Wet', 'Peas(Dry)', 'Green Peas',
+      'Cowpea(Lobia/Karamani)', 'Kabuli Chana(Chickpeas-White)',
     ],
     'Oilseeds': [
       'Groundnut', 'Sesamum(Sesame,Gingelly,Til)', 'Mustard', 'Soyabean',
-      'Sunflower Seed', 'Castor Seed', 'Linseed', 'Safflower',
+      'Sunflower', 'Castor Seed', 'Safflower', 'Taramira',
     ],
     'Vegetables': [
-      'Onion', 'Potato', 'Tomato', 'Brinjal', 'Cabbage',
-      'Cauliflower', 'Capsicum', 'Green Chilli', 'Ladies Finger',
-      'Drumstick', 'Bitter Gourd', 'Bottle Gourd', 'Pumpkin',
-      'Radish', 'Carrot', 'Spinach', 'Cucumber', 'Garlic',
+      'Onion', 'Onion Green', 'Potato', 'Tomato', 'Brinjal', 'Cabbage',
+      'Cauliflower', 'Capsicum', 'Green Chilli', 'Chili Red',
+      'Bhindi(Ladies Finger)', 'Ladies Finger',
+      'Drumstick', 'Bitter gourd', 'Bottle gourd', 'Pumpkin', 'Sweet Pumpkin',
+      'Raddish', 'Carrot', 'Spinach', 'Cucumbar(Kheera)', 'Garlic',
+      'Beans', 'French Beans(Frasbean)', 'Cluster beans', 'Guar',
+      'Pointed gourd(Parval)', 'Ridgeguard(Tori)', 'Snakeguard', 'Sponge gourd',
+      'Tinda', 'Ashgourd', 'Colacasia', 'Sweet Potato', 'Yam(Ratalu)',
+      'Elephant Yam(Suran)/Amorphophallus', 'Sweet Corn ', 'Baby Corn',
+      'Beetroot', 'Turnip', 'Mint(Pudina)', 'Coriander(Leaves)', 'Methi(Leaves)',
     ],
     'Fruits': [
-      'Apple', 'Orange', 'Banana', 'Mango', 'Pineapple', 'Grapes',
-      'Papaya', 'Pomegranate', 'Watermelon', 'Guava',
-      'Lemon', 'Coconut', 'Jack Fruit', 'Kinnow',
+      'Apple', 'Orange', 'Banana', 'Banana - Green', 'Mango', 'Mango(Raw-Ripe)',
+      'Pineapple', 'Grapes', 'Papaya', 'Pomegranate', 'Water Melon',
+      'Karbuja(Musk Melon)', 'Guava', 'Lemon', 'Lime',
+      'Coconut', 'Tender Coconut', 'Jack Fruit(Ripe)',
+      'Chikoos(Sapota)', 'Amla(Nelli Kai)', 'Tamarind Fruit',
+      'Mousambi(Sweet Lime)',
     ],
     'Spices': [
-      'Turmeric', 'Dry Chillies', 'Cumin(Jeera)', 'Coriander (Dhaniya)',
-      'Ginger (Dry)', 'Black Pepper', 'Cardamom', 'Fenugreek Seed (Methi)',
+      'Dry Chillies', 'Cummin Seed(Jeera)', 'Corriander seed', 'Methi Seeds',
+      'Black pepper', 'Ajwan', 'Soanf',
     ],
     'Cash Crops': [
-      'Cotton(Lint)', 'Sugarcane', 'Jute', 'Tobacco',
+      'Cotton', 'Tobacco', 'Gur(Jaggery)', 'Copra',
+      'Cashewnuts', 'Arecanut(Betelnut/Supari)',
+      'Tapioca', 'Isabgul(Psyllium)',
     ],
   };
 
