@@ -22,8 +22,15 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
+      // ML Flask server (local) — proxied to avoid CORS in dev
+      '/ml-api': {
+        target: 'http://localhost:5050',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/ml-api/, ''),
+      },
+      // Node.js backend — use local server in dev
       '/api': {
-        target: 'https://farmsetu-6bga.onrender.com',
+        target: 'http://localhost:5000',
         changeOrigin: true,
       }
     }
