@@ -15,7 +15,7 @@ const InputField = ({ label, name, icon: Icon, placeholder, min, max, value, onC
         <label className="text-sm font-medium text-gray-600">{label}</label>
         <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Icon className="text-green-500" />
+                <Icon className="text-green-400" />
             </div>
             <input
                 type="number"
@@ -25,7 +25,7 @@ const InputField = ({ label, name, icon: Icon, placeholder, min, max, value, onC
                 placeholder={placeholder}
                 min={min}
                 max={max}
-                className="w-full bg-green-50/50 border border-green-200 text-gray-100 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block pl-10 p-2.5 placeholder-gray-500 transition-all"
+                className="w-full bg-green-50/50 border border-green-200 text-gray-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block pl-10 p-2.5 placeholder-gray-500 transition-all"
                 required
             />
         </div>
@@ -42,7 +42,7 @@ const CropResultDetails = ({ result, t }) => {
             {/* Header */}
             <div className="bg-white border-l-4 border-green-500 p-6 rounded-r-xl shadow-lg flex items-center justify-between">
                 <div>
-                    <h2 className="text-3xl font-bold text-white font-serif tracking-wide flex items-center">
+                    <h2 className="text-3xl font-bold text-[rgb(8,106,23)] font-serif tracking-wide flex items-center">
                         <span className="text-green-500 mr-2">&#127807;</span>
                         {t('recommended_crop')}
                         <span className="bg-green-900/30 text-green-400 px-3 py-1 rounded ml-2 border border-green-500/30 uppercase">
@@ -55,7 +55,7 @@ const CropResultDetails = ({ result, t }) => {
 
             {/* Optimal Growing Conditions */}
             <div className="bg-white rounded-xl p-6 border border-green-200 shadow-md hover:border-green-500/50 transition-colors">
-                <h3 className="text-xl font-semibold text-green-400 mb-4 flex items-center">
+                <h3 className="text-xl font-semibold text-green-600 mb-4 flex items-center">
                     <FaSun className="mr-2" /> {t('optimal_growing')}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -63,35 +63,35 @@ const CropResultDetails = ({ result, t }) => {
                         <GiPlantRoots className="text-yellow-500 text-xl mr-3 mt-1" />
                         <div>
                             <h4 className="text-gray-500 text-xs uppercase font-bold">{t('soil_type')}</h4>
-                            <p className="text-white font-medium">{details.soil_type || "N/A"}</p>
+                            <p className="text-[rgb(8,106,23)] font-medium">{details.soil_type || "N/A"}</p>
                         </div>
                     </div>
                     <div className="flex items-start p-3 bg-green-50/30 rounded-lg">
                         <FaCloudSun className="text-blue-400 text-xl mr-3 mt-1" />
                         <div>
                             <h4 className="text-gray-500 text-xs uppercase font-bold">{t('climate')}</h4>
-                            <p className="text-white font-medium">{details.best_grown_in || "N/A"}</p>
+                            <p className="text-[rgb(8,106,23)] font-medium">{details.best_grown_in || "N/A"}</p>
                         </div>
                     </div>
                     <div className="flex items-start p-3 bg-green-50/30 rounded-lg">
                         <FaHourglassHalf className="text-purple-400 text-xl mr-3 mt-1" />
                         <div>
                             <h4 className="text-gray-500 text-xs uppercase font-bold">{t('growing_time')}</h4>
-                            <p className="text-white font-medium">{details.growing_time || "N/A"}</p>
+                            <p className="text-[rgb(8,106,23)] font-medium">{details.growing_time || "N/A"}</p>
                         </div>
                     </div>
                     <div className="flex items-start p-3 bg-green-50/30 rounded-lg">
                         <FaLeaf className="text-green-500 text-xl mr-3 mt-1" />
                         <div>
                             <h4 className="text-gray-500 text-xs uppercase font-bold">{t('best_season')}</h4>
-                            <p className="text-white font-medium">{details.best_season || "N/A"}</p>
+                            <p className="text-[rgb(8,106,23)] font-medium">{details.best_season || "N/A"}</p>
                         </div>
                     </div>
                     <div className="flex items-start p-3 bg-green-50/30 rounded-lg">
                         <FaTemperatureHigh className="text-red-400 text-xl mr-3 mt-1" />
                         <div>
                             <h4 className="text-gray-500 text-xs uppercase font-bold">{t('ideal_temperature')}</h4>
-                            <p className="text-white font-medium">{details.ideal_temperature || "N/A"}</p>
+                            <p className="text-[rgb(8,106,23)] font-medium">{details.ideal_temperature || "N/A"}</p>
                         </div>
                     </div>
                 </div>
@@ -100,16 +100,16 @@ const CropResultDetails = ({ result, t }) => {
             {/* Cultivation Steps */}
             {details.steps && (
                 <div className="bg-white rounded-xl p-6 border border-green-200 shadow-md">
-                    <h3 className="text-xl font-semibold text-green-400 mb-4 flex items-center">
+                    <h3 className="text-xl font-semibold text-green-500 mb-4 flex items-center">
                         <GiSpade className="mr-2" /> {t('cultivation_steps')}
                     </h3>
                     <ol className="space-y-3">
                         {details.steps.map((step, idx) => (
                             <li key={idx} className="flex items-start group">
-                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-green-900/50 text-green-400 border border-green-500/50 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 group-hover:bg-green-500 group-hover:text-white transition-colors">
+                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 text-white border border-green-500/50 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 ">
                                     {idx + 1}
                                 </span>
-                                <span className="text-gray-600 group-hover:text-gray-100 transition-colors">{step}</span>
+                                <span className="text-gray-600">{step}</span>
                             </li>
                         ))}
                     </ol>
@@ -119,13 +119,13 @@ const CropResultDetails = ({ result, t }) => {
             {/* Challenges & Solutions */}
             {details.problems_and_solutions && (
                 <div className="bg-white rounded-xl p-6 border border-green-200 shadow-md">
-                    <h3 className="text-xl font-semibold text-red-400 mb-4 flex items-center">
+                    <h3 className="text-xl font-semibold text-red-600 mb-4 flex items-center">
                         <FaExclamationTriangle className="mr-2" /> {t('common_challenges')}
                     </h3>
                     <div className="space-y-3">
                         {Object.entries(details.problems_and_solutions).map(([problem, solution], idx) => (
                             <div key={idx} className="bg-red-900/10 border border-red-900/30 p-4 rounded-lg">
-                                <h4 className="text-red-300 font-bold flex items-center text-sm mb-1">
+                                <h4 className="text-red-500 font-bold flex items-center text-sm mb-1">
                                     <FaBug className="mr-2" /> {problem}
                                 </h4>
                                 <p className="text-gray-500 text-sm pl-6">{solution}</p>
@@ -141,12 +141,12 @@ const CropResultDetails = ({ result, t }) => {
                 {/* Tools */}
                 {details.tools_needed && (
                     <div className="bg-white rounded-xl p-6 border border-green-200 shadow-md">
-                        <h3 className="text-lg font-semibold text-yellow-400 mb-4 flex items-center">
+                        <h3 className="text-lg font-semibold text-yellow-600 mb-4 flex items-center">
                             <FaTools className="mr-2" /> {t('required_tools')}
                         </h3>
                         <div className="flex flex-wrap gap-2">
                             {details.tools_needed.map((tool, idx) => (
-                                <span key={idx} className="bg-yellow-900/20 text-yellow-200 border border-yellow-700/30 px-3 py-1 rounded-full text-sm flex items-center">
+                                <span key={idx} className="bg-yellow-900/20 text-yellow-800 border border-yellow-700/30 px-3 py-1 rounded-full text-sm flex items-center">
                                     <FaCheckCircle className="mr-2 text-xs opacity-50" /> {tool}
                                 </span>
                             ))}
@@ -156,19 +156,19 @@ const CropResultDetails = ({ result, t }) => {
 
                 {/* Economics */}
                 <div className="bg-white rounded-xl p-6 border border-green-200 shadow-md">
-                    <h3 className="text-lg font-semibold text-blue-400 mb-4 flex items-center">
+                    <h3 className="text-lg font-semibold text-blue-600 mb-4 flex items-center">
                         <FaChartLine className="mr-2" /> {t('economics')}
                     </h3>
                     <div className="space-y-4">
-                        <div className="bg-blue-900/20 p-3 rounded-lg border border-blue-800/30">
-                            <div className="text-blue-300 text-xs uppercase font-bold mb-1">{t('projected_yield')}</div>
-                            <div className="text-white font-medium">{details.expected_yield || "N/A"}</div>
+                        <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                            <div className="text-blue-700 text-xs uppercase font-bold mb-1">{t('projected_yield')}</div>
+                            <div className="text-blue-900 font-medium">{details.expected_yield || "N/A"}</div>
                         </div>
-                        <div className="bg-green-900/20 p-3 rounded-lg border border-green-800/30">
-                            <div className="text-green-300 text-xs uppercase font-bold mb-1 flex items-center">
+                        <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                            <div className="text-green-700 text-xs uppercase font-bold mb-1 flex items-center">
                                 <FaRupeeSign className="mr-1" /> {t('market_price_label')}
                             </div>
-                            <div className="text-white font-medium">{details.market_price || "N/A"}</div>
+                            <div className="text-green-900 font-medium">{details.market_price || "N/A"}</div>
                         </div>
                     </div>
                 </div>
@@ -228,8 +228,8 @@ const CropRecommendationML = () => {
         <div className="bg-[#FEFAE0] min-h-screen pt-24 pb-12 px-4">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-10">
-                    <h1 className="text-4xl font-bold text-white mb-4">
-                        <span className="text-green-500">{t('smart_crop')}</span> {t('recommendation_label')}
+                    <h1 className="text-4xl font-bold text-gray-800 mb-4">
+                        <span className="text-green-600">{t('smart_crop')}</span> {t('recommendation_label')}
                     </h1>
                     <p className="text-gray-600 max-w-2xl mx-auto">
                         {t('crop_desc')}
@@ -239,7 +239,7 @@ const CropRecommendationML = () => {
                 <div className="grid lg:grid-cols-12 gap-8">
                     {/* Form Section (Takes 4 columns on large screens) */}
                     <div className="lg:col-span-4 h-fit bg-white border border-green-200 rounded-xl p-6 shadow-xl sticky top-24">
-                        <h2 className="text-xl font-semibold text-white mb-6 border-b border-green-200 pb-3 flex items-center">
+                        <h2 className="text-xl font-semibold text-gray-700 mb-6 border-b border-green-200 pb-3 flex items-center">
                             <FaFlask className="mr-2 text-green-500" /> {t('soil_analysis')}
                         </h2>
                         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-5">

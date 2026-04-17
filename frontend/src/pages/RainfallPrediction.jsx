@@ -112,19 +112,19 @@ const RainfallPrediction = () => {
     // Helper component for prediction cards
     const PredictionCard = ({ title, result, confidence }) => {
         const isRain = result === 'YES';
-        const bgColor = isRain ? 'bg-green-900/40 border-green-500' : 'bg-red-900/40 border-red-500';
-        const textColor = isRain ? 'text-green-400' : 'text-red-400';
+        const bgColor = isRain ? 'bg-green-50 border-green-400' : 'bg-red-50 border-red-400';
+        const textColor = isRain ? 'text-green-600' : 'text-red-600';
 
         return (
-            <div className={`border rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-lg transition-transform hover:scale-105 ${bgColor}`}>
-                <h3 className="text-gray-200 font-semibold text-lg mb-2 flex items-center">
+            <div className={`border rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-md transition-transform hover:scale-105 ${bgColor}`}>
+                <h3 className="text-gray-700 font-semibold text-lg mb-2 flex items-center">
                     <FaClock className="mr-2 opacity-70" /> {title}
                 </h3>
                 <div className={`text-2xl font-bold mb-1 ${textColor}`}>
                     {result}
                 </div>
                 <div className="text-sm text-gray-500">
-                    {t('confidence')} <span className="text-white font-medium">{confidence}%</span>
+                    {t('confidence')} <span className="text-gray-800 font-medium">{confidence}%</span>
                 </div>
             </div>
         );
@@ -134,7 +134,7 @@ const RainfallPrediction = () => {
         <div className="bg-[#FEFAE0] min-h-screen pt-24 pb-12 px-4">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-10">
-                    <h1 className="text-4xl font-bold text-white mb-4">
+                    <h1 className="text-4xl font-bold text-black mb-4">
                         <span className="text-blue-500">{t('kushal_sinchai')}</span> {t('rainfall_prediction')}
                     </h1>
                     <p className="text-gray-600 max-w-2xl mx-auto">
@@ -146,7 +146,7 @@ const RainfallPrediction = () => {
                     {/* LEFT COL: Inputs */}
                     <div className="space-y-6">
                         <div className="bg-white border border-green-200 rounded-xl p-6 shadow-lg">
-                            <h2 className="text-xl font-semibold text-white mb-6 flex items-center border-b border-green-200 pb-2">
+                            <h2 className="text-xl font-semibold text-gray-700 mb-6 flex items-center border-b border-green-200 pb-2">
                                 <FaSearchLocation className="mr-2 text-blue-500" /> {t('location_details')}
                             </h2>
 
@@ -161,7 +161,7 @@ const RainfallPrediction = () => {
                                                 name="city"
                                                 value={formData.city}
                                                 onChange={handleChange}
-                                                className="w-full bg-green-50/50 border border-green-200 rounded-lg py-2.5 pl-10 pr-4 text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                                                className="w-full bg-green-50/50 border border-green-200 rounded-lg py-2.5 pl-10 pr-4 text-gray-800 focus:ring-2 focus:ring-blue-500 outline-none"
                                                 placeholder="e.g. Pune"
                                             />
                                         </div>
@@ -173,7 +173,7 @@ const RainfallPrediction = () => {
                                             name="state"
                                             value={formData.state}
                                             onChange={handleChange}
-                                            className="w-full bg-green-50/50 border border-green-200 rounded-lg py-2.5 px-4 text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                                            className="w-full bg-green-50/50 border border-green-200 rounded-lg py-2.5 px-4 text-black focus:ring-2 focus:ring-blue-500 outline-none"
                                             placeholder="e.g. Maharashtra"
                                         />
                                     </div>
@@ -201,7 +201,7 @@ const RainfallPrediction = () => {
                                             name="current_temp"
                                             value={formData.current_temp}
                                             onChange={handleChange}
-                                            className="w-full bg-[#FEFAE0] border border-green-200 rounded p-2 text-white"
+                                            className="w-full bg-[#FEFAE0] border border-green-200 rounded p-2 text-black-500"
                                             placeholder="Auto-filled"
                                         />
                                     </div>
@@ -212,7 +212,7 @@ const RainfallPrediction = () => {
                                             name="current_humidity"
                                             value={formData.current_humidity}
                                             onChange={handleChange}
-                                            className="w-full bg-[#FEFAE0] border border-green-200 rounded p-2 text-white"
+                                            className="w-full bg-[#FEFAE0] border border-green-200 rounded p-2 text-black-100"
                                             placeholder="Auto-filled"
                                         />
                                     </div>
@@ -241,7 +241,7 @@ const RainfallPrediction = () => {
                         {/* Live Weather Card */}
                         <div className="bg-white border border-green-200 rounded-xl p-6 shadow-lg relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-blue-600"></div>
-                            <h2 className="text-xl font-semibold text-white mb-4 flex items-center">
+                            <h2 className="text-xl font-semibold text-[rgba(0, 128, 36, 1)] mb-4 flex items-center">
                                 {t('current_weather_label')} <span className="text-xs text-gray-500 ml-2 font-normal">(OpenWeatherMap)</span>
                             </h2>
 
@@ -256,13 +256,13 @@ const RainfallPrediction = () => {
                                         <div className="flex items-center">
                                             {getWeatherIcon(weatherData.weather[0].main)}
                                             <div className="ml-4">
-                                                <div className="text-3xl font-bold text-white">{Math.round(weatherData.main.temp)}°C</div>
-                                                <div className="text-gray-500 capitalize">{weatherData.weather[0].description}</div>
+                                                <div className="text-3xl font-bold text-gray-800">{Math.round(weatherData.main.temp)}°C</div>
+                                                <div className="text-gray-600 capitalize">{weatherData.weather[0].description}</div>
                                             </div>
                                         </div>
                                         <div className="text-right">
                                             <div className="text-sm text-gray-500">{t('feels_like')}</div>
-                                            <div className="text-lg font-medium text-white">{Math.round(weatherData.main.feels_like)}°C</div>
+                                            <div className="text-lg font-medium text-gray-700">{Math.round(weatherData.main.feels_like)}°C</div>
                                         </div>
                                     </div>
 
@@ -271,14 +271,14 @@ const RainfallPrediction = () => {
                                             <FaTint className="text-blue-400 mr-3 text-xl" />
                                             <div>
                                                 <div className="text-xs text-gray-500">{t('humidity')}</div>
-                                                <div className="font-semibold text-white">{weatherData.main.humidity}%</div>
+                                                <div className="font-semibold text-gray-800">{weatherData.main.humidity}%</div>
                                             </div>
                                         </div>
                                         <div className="bg-green-50/50 p-3 rounded-lg flex items-center">
                                             <FaWind className="text-gray-600 mr-3 text-xl" />
                                             <div>
                                                 <div className="text-xs text-gray-500">{t('wind_speed')}</div>
-                                                <div className="font-semibold text-white">{weatherData.wind.speed} m/s</div>
+                                                <div className="font-semibold text-gray-800">{weatherData.wind.speed} m/s</div>
                                             </div>
                                         </div>
                                     </div>
@@ -289,7 +289,7 @@ const RainfallPrediction = () => {
                         {/* ML Prediction Results - 3 Cards */}
                         {prediction && (
                             <div className="bg-white border border-green-200 rounded-xl p-6 shadow-lg animate-fade-in">
-                                <h2 className="text-xl font-semibold text-white mb-6 border-b border-green-200 pb-2">
+                                <h2 className="text-xl font-semibold text-[rgba(7, 102, 33, 1)] mb-6 border-b border-green-200 pb-2">
                                     {t('rainfall_predictions')}
                                 </h2>
 
@@ -311,9 +311,9 @@ const RainfallPrediction = () => {
                                     />
                                 </div>
 
-                                <div className="p-4 bg-blue-900/20 border border-blue-800/50 rounded-lg">
-                                    <h4 className="text-blue-400 font-medium mb-1">{t('irrigation_advice')}</h4>
-                                    <p className="text-gray-600 text-sm">{prediction.irrigation_recommendation}</p>
+                                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                                    <h4 className="text-blue-700 font-medium mb-1">{t('irrigation_advice')}</h4>
+                                    <p className="text-gray-700 text-sm">{prediction.irrigation_recommendation}</p>
                                 </div>
                             </div>
                         )}

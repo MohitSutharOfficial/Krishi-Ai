@@ -7,6 +7,13 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import joblib  
 import pandas as pd
+
+# Load .env file so ALLOWED_ORIGINS and ML_API_KEY are available locally
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, rely on system env vars
 # 1. Rainfall Logic
 try:
     from utils.rainfall_model import RainfallPredictor
